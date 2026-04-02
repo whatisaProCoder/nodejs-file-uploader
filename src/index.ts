@@ -1,9 +1,4 @@
-import { configDotenv } from "dotenv";
-
-// import env variables
-configDotenv();
-
-// import libraries
+import "dotenv/config";
 import express, { Express } from "express";
 
 const app: Express = express();
