@@ -1,1 +1,13 @@
-Header
+<div class="header">
+  <div class="brand">
+    <img src="/brand-icon.svg" alt="ShareFY" class="icon">
+    <div class="name">ShareFY</div>
+  </div>
+  <div class="nav">
+    <% if(!locals.currentUser) { %>
+      <a href="/auth/sign-up">Sign Up</a>
+      <a href="/auth/log-in">Login</a>
+      <% } else { %>
+        <a href="/auth/log-out">Log Out</a>
+        <% } %>
+  </div>
