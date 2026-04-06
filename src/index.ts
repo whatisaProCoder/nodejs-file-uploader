@@ -8,6 +8,7 @@ import { initialisePassport } from "./config/passport";
 import passport from "passport";
 import userMiddleware from "./middleware/user.middleware";
 import errorMiddleware from "./middleware/error.middleware";
+import homeRouter from "./routes/home.router";
 
 const app: Express = express();
 
@@ -37,7 +38,8 @@ app.use(express.urlencoded({ extended: true }));
 app.use(userMiddleware);
 
 // routes
-// ...
+
+app.use("/", homeRouter);
 
 app.get("/{*splat}", (_req, res) => {
   res.status(404).send("404");
