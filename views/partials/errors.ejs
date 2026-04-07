@@ -1,0 +1,10 @@
+<div class="errors-container">
+  <div class="title">Error encountered</div>
+  <ul>
+    <% errors.forEach(error=> { %>
+      <li>
+        <%= error.msg %>
+      </li>
+      <% }) %>
+  </ul>
+</div>

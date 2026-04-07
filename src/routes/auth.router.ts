@@ -5,4 +5,6 @@ const authRouter = Router();
 
 authRouter.get("/sign-up", AuthController.signUpPageGet);
 
+authRouter.get("/log-in", AuthController.loginPageGet);
+
 export default authRouter;

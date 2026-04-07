@@ -83,6 +83,7 @@ a {
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
 }
 
 .content {
@@ -344,4 +345,112 @@ a {
 .footer a {
   color: #43aaff;
   margin: 0 4px;
+}
+
+.form-container {
+  width: 450px;
+  margin: 1rem;
+  background-color: #1E2129;
+  border: 1px solid #333A4A;
+  border-radius: 1rem;
+  padding: 2rem;
+  filter: drop-shadow(0 4px 6px rgba(0, 0, 0, 0.1));
+}
+
+.form-container form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+@media screen and (max-width:550px) {
+  .form-container {
+    width: 85%;
+  }
+}
+
+.form-container .title {
+  font-family: "Righteous";
+  font-size: 1.8rem;
+  text-align: center;
+  padding-bottom: 1.5rem;
+  border-bottom: 1px solid #333A4A;
+}
+
+.form-container .form-name {
+  font-family: "Righteous";
+  font-size: 1.25rem;
+  padding: 2rem 0;
+}
+
+.input-container {
+  background-color: #252933;
+  border: 1px solid #333A4A;
+  padding: 0.375rem;
+  border-radius: 0.75rem;
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+}
+
+.input-container:focus-within {
+  background-color: #2f2f2f;
+}
+
+input {
+  flex: 1;
+  border-radius: 0.45rem;
+  outline: none;
+  background-color: #1C1F27;
+  border: none;
+  padding: 0.35rem 1rem;
+  color: #f5f5f5;
+  font-size: 1.08rem;
+  font-family: "Geist";
+}
+
+.form-button-container {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+}
+
+.submit-button {
+  background-color: #238BE1;
+  border: 1px solid #3C92D8;
+  border-radius: 0.75rem !important;
+  font-size: 1rem !important;
+  font-weight: 500 !important;
+  padding: 0.6rem 1.25rem !important;
+  margin-top: 0.8rem !important;
+  width: 100%;
+  text-align: center;
+}
+
+.bottom-section {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  margin-top: 2rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid #333A4A;
+}
+
+.bottom-section div {
+  color: #B8B8B8;
+  font-weight: 500;
+}
+
+.bottom-section a {
+  color: #43aaff;
+}
+
+
+@media screen and (max-width:600px) {
+  input {
+    width: 90%;
+  }
 }

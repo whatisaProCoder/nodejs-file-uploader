@@ -16,36 +16,27 @@
 
       <div class="form-container">
         <div class="title">
-          Create your free account
+          Welcome Back!
         </div>
-        <div class="form-name">Sign Up</div>
+        <div class="form-name">Login</div>
         <% if(locals.errors) { %>
           <%- include("./errors/errors") %>
             <% } %>
-              <form action="/auth/sign-up" method="POST">
-                <div class="input-container">
-                  <input type="text" name="firstname" placeholder="First Name" value="<%= oldData?.firstname || '' %>"
-                    required>
-                </div>
-                <div class="input-container">
-                  <input type="text" name="lastname" placeholder="Last Name" value="<%= oldData?.lastname || '' %>"
-                    required>
-                </div>
+              <form action="/auth/log-in" method="POST">
+
                 <div class="input-container">
                   <input type="email" name="email" placeholder="E-Mail" value="<%= oldData?.email || '' %>" required>
                 </div>
                 <div class="input-container">
                   <input type="password" name="password" placeholder="Password" required>
                 </div>
-                <div class="input-container">
-                  <input type="password" name="confirmPassword" placeholder="Confirm Password" required>
-                </div>
+
                 <div class="form-button-container">
-                  <div><input type="submit" value="Create Account" class="submit-button"></div>
+                  <div><input type="submit" value="Submit" class="submit-button"></div>
                 </div>
               </form>
               <div class="bottom-section">
-                <div>Already have an account? <a href="/auth/log-in">Sign In</a></div>
+                <div>Don't have an account? <a href="/auth/sign-up">Sign Up</a></div>
               </div>
       </div>
 
