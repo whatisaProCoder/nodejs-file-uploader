@@ -196,8 +196,11 @@ a {
   border-radius: 1rem;
   margin: 4rem;
   padding: 4rem;
-  padding-top: 3rem;
   margin-top: 8rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 
 @media screen and (max-width:768px) {
@@ -206,19 +209,9 @@ a {
     margin-right: 0;
     padding: 2rem;
   }
-
-  .feature-section .section-title {
-    text-align: center;
-  }
-}
-
-.feature-section .section-title {
-  font-family: "Righteous";
-  font-size: 2rem;
 }
 
 .feature-section .grid {
-  margin-top: 3rem;
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   gap: 4rem;
