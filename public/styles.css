@@ -145,7 +145,7 @@ a {
 
 .hero-section .action-button {
   background-color: #238BE1;
-  border: 3px solid #3C92D8;
+  border: 2px solid #3C92D8;
   color: #f4f4f4;
   font-family: "Geist";
   font-weight: bold;
@@ -196,6 +196,7 @@ a {
   border-radius: 1rem;
   margin: 4rem;
   padding: 4rem;
+  padding-top: 3rem;
   margin-top: 8rem;
 }
 
