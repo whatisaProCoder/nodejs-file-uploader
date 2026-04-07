@@ -290,14 +290,14 @@ a {
 
 .tech-stack-section .line-1 {
   height: 2px;
-  background: linear-gradient(to right, #191A1D, #F4F4F4);
+  background: linear-gradient(to right, #191a1de0, #f4f4f4d2);
   flex: 1;
 }
 
 
 .tech-stack-section .line-2 {
   height: 2px;
-  background: linear-gradient(to left, #191A1D, #F4F4F4);
+  background: linear-gradient(to left, #191a1de0, #f4f4f4d2);
   flex: 1;
 }
 
