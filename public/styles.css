@@ -35,6 +35,19 @@ a {
   left: 0;
   right: 0;
   z-index: 10;
+  transition: background-color 0.3s ease-in-out 0.1s,
+    backdrop-filter 0.3s ease-in-out 0.1s,
+    filter 0.3s ease-in-out 0.1s,
+    border-bottom 0.3s ease-in-out 0.1s;
+  ;
+  border-bottom: 1px solid transparent;
+}
+
+.scrolled {
+  background-color: #1e2129bd;
+  backdrop-filter: blur(15px);
+  filter: drop-shadow(0 4px 6px rgba(0, 0, 0, 0.1));
+  border-bottom: 1px solid #333a4ac5;
 }
 
 .header .brand {
@@ -75,7 +88,7 @@ a {
 .content {
   width: 1378px;
   margin-top: 3rem;
-  margin-bottom: 6rem;
+  margin-bottom: 3rem;
 }
 
 
@@ -104,6 +117,237 @@ a {
   top: 0;
   left: 0;
   right: 0;
-  height: 10rem;
-  background: linear-gradient(to bottom, );
+  height: 20rem;
+  background: linear-gradient(to bottom, #1A2545, #191A1D);
+  z-index: -2;
+}
+
+.hero-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin-top: 3rem;
+}
+
+.hero-section .hero-text {
+  font-family: "Righteous";
+  font-size: 2.5rem;
+  text-align: center;
+}
+
+.hero-section .hero-text span {
+  background: linear-gradient(to right, #6abcff, #0070CC);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.hero-section .action-button {
+  background-color: #238BE1;
+  border: 3px solid #3C92D8;
+  color: #f4f4f4;
+  font-family: "Geist";
+  font-weight: bold;
+  padding: 0.5rem 1.5rem;
+  font-size: 1.25rem;
+  border-radius: 0.5rem;
+  margin-top: 2.5rem;
+}
+
+.dashboard-representation {
+  margin-top: 8rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin-left: 4rem;
+  margin-right: 4rem;
+}
+
+@media screen and (max-width:768px) {
+  .dashboard-representation {
+    margin-left: 0;
+    margin-right: 0;
+  }
+}
+
+@media screen and (max-width:768px) {
+  .dashboard-representation {
+    margin-top: 4rem;
+  }
+}
+
+.dashboard-representation img {
+  border: 1px solid #333A4A;
+  width: 100%;
+  border-radius: 0.5rem;
+  filter: drop-shadow(0px 4px 8px rgba(0, 0, 0, 0.53));
+}
+
+.dashboard-representation .subtext {
+  margin-top: 1rem;
+  font-weight: 500;
+}
+
+.feature-section {
+  background-color: #141518;
+  border: 1px solid #070707;
+  border-radius: 1rem;
+  margin: 4rem;
+  padding: 4rem;
+  margin-top: 8rem;
+}
+
+@media screen and (max-width:768px) {
+  .feature-section {
+    margin-left: 0;
+    margin-right: 0;
+    padding: 2rem;
+  }
+
+  .feature-section .section-title {
+    text-align: center;
+  }
+}
+
+.feature-section .section-title {
+  font-family: "Righteous";
+  font-size: 2rem;
+}
+
+.feature-section .grid {
+  margin-top: 3rem;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 4rem;
+}
+
+@media screen and (max-width:1140px) {
+  .feature-section .grid {
+    grid-template-columns: repeat(1, 1fr);
+  }
+}
+
+.feature-section .card {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+.feature-section .icon-container {
+  border: 3px solid #f4f4f4;
+  padding: 1rem;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  height: 4.5rem;
+  width: 4.5rem;
+  aspect-ratio: 1/1;
+  border-radius: 0.5rem;
+}
+
+.feature-section .title {
+  font-family: "Righteous";
+  font-size: 1.5rem;
+}
+
+.feature-section .subtext {
+  color: #C3C3C3;
+  margin-top: 0.5rem;
+}
+
+@media screen and (max-width:768px) {
+  .feature-section .title {
+    font-size: 1.25rem;
+  }
+
+  .feature-section .subtext {
+    font-size: 0.9rem;
+  }
+}
+
+.tech-stack-section {
+  margin: 4rem;
+  margin-top: 6rem;
+}
+
+@media screen and (max-width:768px) {
+  .tech-stack-section {
+    margin-left: 0;
+    margin-right: 0;
+  }
+}
+
+.tech-stack-section .title-group {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 1rem;
+}
+
+.tech-stack-section .line-1 {
+  height: 2px;
+  background: linear-gradient(to right, #191A1D, #F4F4F4);
+  flex: 1;
+}
+
+
+.tech-stack-section .line-2 {
+  height: 2px;
+  background: linear-gradient(to left, #191A1D, #F4F4F4);
+  flex: 1;
+}
+
+.tech-stack-section .title {
+  font-size: 2rem;
+  font-family: "Righteous";
+}
+
+.tech-stack-section .marquee-container {
+  overflow: hidden;
+  white-space: nowrap;
+  margin-top: 2rem;
+}
+
+.tech-stack-section .marquee-container .marquee-content {
+  display: inline-flex;
+  gap: 1rem;
+  animation: marquee-scroll 10s linear infinite;
+}
+
+.tech-stack-section .item {
+  background-color: #141518;
+  border: 1px solid #070707;
+  font-weight: 500;
+  padding: 0.5rem 1rem;
+  width: 13ch;
+  text-align: center;
+}
+
+@keyframes marquee-scroll {
+  from {
+    transform: translateX(0);
+  }
+
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+.footer {
+  font-family: "Righteous";
+  font-size: 0.9rem;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  padding-top: 2rem;
+  color: #B8B8B8;
+}
+
+.footer a {
+  color: #43aaff;
+  margin: 0 4px;
 }
