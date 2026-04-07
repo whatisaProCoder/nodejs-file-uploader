@@ -30,6 +30,11 @@ a {
   justify-content: space-between;
   padding: 1.375rem;
   align-items: center;
+  position: sticky;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 10;
 }
 
 .header .brand {
@@ -59,4 +64,46 @@ a {
   color: #f4f4f4;
   font-family: "Geist";
   font-weight: 500;
+}
+
+.content-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.content {
+  width: 1378px;
+  margin-top: 3rem;
+  margin-bottom: 6rem;
+}
+
+
+@media screen and (max-width:1400px) {
+  .content {
+    width: 100%;
+    padding-left: 3rem;
+    padding-right: 3rem;
+  }
+}
+
+@media screen and (max-width:600px) {
+  .content {
+    width: 100%;
+    padding: 1.5rem;
+    margin-top: 0.5rem;
+  }
+
+  input {
+    width: 90%;
+  }
+}
+
+.gradient {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 10rem;
+  background: linear-gradient(to bottom, );
 }
