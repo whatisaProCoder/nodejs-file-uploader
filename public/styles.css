@@ -469,6 +469,7 @@ input {
 
 .errors-container .error-title {
   font-family: "Geist";
+  font-weight: 500;
 }
 
 .errors-container ul {
