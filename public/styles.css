@@ -475,3 +475,105 @@ input {
 .errors-container ul {
   font-family: "Geist";
 }
+
+.banner {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.5rem;
+}
+
+.banner .greeting .text {
+  font-family: "Righteous";
+  font-size: 2rem;
+}
+
+.banner .greeting .subtext {
+  font-size: 1.125rem;
+  font-weight: 600;
+  color: #B8B8B8;
+  margin-top: 0.5rem;
+  line-height: 1.25rem;
+}
+
+.banner .metrics {
+  background-color: #1E2129;
+  border: 1px solid #333a4A;
+  display: flex;
+  padding: 0.75rem 0;
+  flex-direction: row;
+  border-radius: 0.5rem;
+}
+
+.banner .metric {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 1rem;
+}
+
+.banner .metrics-title {
+  font-weight: bold;
+  font-size: 0.9rem;
+  text-align: center;
+}
+
+.banner .metrics .value {
+  font-size: 1.5rem;
+  color: #B8B8B8;
+  font-weight: bold;
+}
+
+.banner .metrics .unit {
+  font-size: 0.9rem;
+}
+
+.banner .metrics .line {
+  background-color: #333A4A;
+  width: 1px;
+}
+
+@media screen and (max-width:1050px) {
+  .banner .greeting {
+    margin-left: 1rem;
+    margin-right: 1rem;
+  }
+
+  .banner .metrics .title {
+    font-size: 0.8rem;
+  }
+
+  .banner .metrics .value {
+    font-size: 1.25rem;
+  }
+
+  .banner {
+    flex-direction: column;
+    gap: 3rem;
+    width: 100%;
+  }
+
+  .banner .greeting {
+    text-align: center;
+  }
+
+  .banner .metrics {
+    width: 100%;
+    justify-content: space-around;
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+}
+
+@media screen and (max-width:500px) {
+  .banner .files {
+    display: none;
+  }
+
+  .banner .metrics {
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
+  }
+}

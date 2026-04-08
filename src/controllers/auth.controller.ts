@@ -5,7 +5,10 @@ import bcrypt from "bcryptjs";
 import { validationResult, matchedData } from "express-validator";
 import { User } from "../generated/prisma/client";
 
-const signUpPageGet: RequestHandler = (_req, res) => {
+const signUpPageGet: RequestHandler = (req, res) => {
+  if (req.isAuthenticated()) {
+    return res.redirect("/dashboard");
+  }
   res.render("sign-up", { oldData: {} });
 };
 
@@ -36,7 +39,7 @@ const signUpPagePost: RequestHandler = async (req, res, next) => {
 
 const loginPageGet: RequestHandler = (req, res) => {
   if (req.isAuthenticated()) {
-    return res.redirect("/");
+    return res.redirect("/dashboard");
   }
   res.render("log-in", { oldData: {} });
 };

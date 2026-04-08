@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ShareFY</title>
+  <link rel="stylesheet" href="/styles.css">
+  <link rel="shortcut icon" href="/brand-icon.svg" type="image/x-icon">
+</head>
+
+<body>
+  <%- include("./partials/header") %>
+    <div class="content-container">
+      <div class="content">
+        <div class="banner">
+          <div class="greeting">
+            <div class="text">Welcome, <%= currentUser?.firstName %>!
+            </div>
+            <div class="subtext">Upload, organize, and manage your files effortlessly.</div>
+          </div>
+          <div class="metrics">
+            <div class="metric">
+              <div class="metrics-title">Total Folders</div>
+              <div class="value">10</div>
+            </div>
+            <div class="line"></div>
+            <div class="metric files">
+              <div class="metrics-title">Total Files</div>
+              <div class="value">20</div>
+            </div>
+            <div class="line files"></div>
+            <div class="metric">
+              <div class="metrics-title">Storage Used</div>
+              <div class="value">34<span class="unit">%</span></div>
+            </div>
+            <div class="line"></div>
+            <div class="metric">
+              <div class="metrics-title">Total Storage</div>
+              <div class="value">50<span class="unit">MB</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+</body>
+
+</html>
