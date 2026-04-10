@@ -8,6 +8,8 @@ const allFoldersPageGet: RequestHandler = async (_req, res) => {
       authorID: res.locals.currentUser.id,
     },
 
+    orderBy: { createdAt: "asc" },
+
     select: {
       id: true,
       name: true,
