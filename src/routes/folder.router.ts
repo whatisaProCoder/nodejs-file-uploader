@@ -1,6 +1,6 @@
 import { Router } from "express";
 import FolderController from "../controllers/folder.controller";
-import folderValidator from "../validators/folderValidator";
+import folderValidator from "../validators/folder.validator";
 
 const folderRouter = Router();
 
