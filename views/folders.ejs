@@ -172,7 +172,7 @@
     </div>
 
 
-    <dialog class="add-folder-dialog" open>
+    <dialog class="add-folder-dialog" closeby="any">
       <div class="dialog-container">
         <div class="dialog-header">
           <div class="dialog-info">
@@ -186,7 +186,7 @@
         <div class="dialog-content">
           <form action="/folder/new" method="POST">
             <div class="input-container">
-              <input type="text" placeholder="Enter Folder Name" name="folderName">
+              <input type="text" placeholder="Enter Folder Name" name="folderName" required>
             </div>
             <div class="dialog-button-group">
               <input type="reset" value="Cancel" class="secondary-button">
