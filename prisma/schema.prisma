@@ -44,6 +44,7 @@ model File {
   name      String   @db.VarChar(100)
   url       String   @db.VarChar(255)
   createdAt DateTime @default(now())
+  size      Int
 
   user   User @relation(fields: [userID], references: [id], onDelete: Cascade)
   userID Int

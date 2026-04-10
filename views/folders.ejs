@@ -50,120 +50,29 @@
             </button>
           </div>
           <div class="folder-grid">
-            <div class="folder-card">
-              <div class="icon">
-                <img src="/folder-icon.svg" alt="Folder">
-              </div>
-              <div class="card-content">
-                <div class="top-row">
-                  <div class="folder-name">Test123</div>
-                  <button class="menu-button">
-                    <img src="/menu-icon.svg" alt="Folder">
-                  </button>
-                </div>
-                <div class="additional-info">300KB • 3 files • 21/04/26</div>
-              </div>
-            </div>
+            <% if(locals.allFolders) { %>
+              <% if(allFolders.length!=0) { allFolders.forEach((folder)=> { %>
 
+                <div class="folder-card">
+                  <div class="icon">
+                    <img src="/folder-icon.svg" alt="Folder">
+                  </div>
+                  <div class="card-content">
+                    <div class="top-row">
+                      <div class="folder-name">
+                        <%= folder.name %>
+                      </div>
+                      <button class="menu-button">
+                        <img src="/menu-icon.svg" alt="Folder">
+                      </button>
+                    </div>
+                    <div class="additional-info">300KB • 3 files • <%= new Intl.DateTimeFormat('en-IN', {
+                        dateStyle:'medium' } ).format(new Date(folder.createdAt)) %>
+                    </div>
+                  </div>
+                </div>
 
-            <div class="folder-card">
-              <div class="icon">
-                <img src="/folder-icon.svg" alt="Folder">
-              </div>
-              <div class="card-content">
-                <div class="top-row">
-                  <div class="folder-name">Test123</div>
-                  <button class="menu-button">
-                    <img src="/menu-icon.svg" alt="Folder">
-                  </button>
-                </div>
-                <div class="additional-info">300KB • 3 files • 21/04/26</div>
-              </div>
-            </div>
-            <div class="folder-card">
-              <div class="icon">
-                <img src="/folder-icon.svg" alt="Folder">
-              </div>
-              <div class="card-content">
-                <div class="top-row">
-                  <div class="folder-name">Test123</div>
-                  <button class="menu-button">
-                    <img src="/menu-icon.svg" alt="Folder">
-                  </button>
-                </div>
-                <div class="additional-info">300KB • 3 files • 21/04/26</div>
-              </div>
-            </div>
-            <div class="folder-card">
-              <div class="icon">
-                <img src="/folder-icon.svg" alt="Folder">
-              </div>
-              <div class="card-content">
-                <div class="top-row">
-                  <div class="folder-name">Test123</div>
-                  <button class="menu-button">
-                    <img src="/menu-icon.svg" alt="Folder">
-                  </button>
-                </div>
-                <div class="additional-info">300KB • 3 files • 21/04/26</div>
-              </div>
-            </div>
-            <div class="folder-card">
-              <div class="icon">
-                <img src="/folder-icon.svg" alt="Folder">
-              </div>
-              <div class="card-content">
-                <div class="top-row">
-                  <div class="folder-name">Test123</div>
-                  <button class="menu-button">
-                    <img src="/menu-icon.svg" alt="Folder">
-                  </button>
-                </div>
-                <div class="additional-info">300KB • 3 files • 21/04/26</div>
-              </div>
-            </div>
-            <div class="folder-card">
-              <div class="icon">
-                <img src="/folder-icon.svg" alt="Folder">
-              </div>
-              <div class="card-content">
-                <div class="top-row">
-                  <div class="folder-name">Test123</div>
-                  <button class="menu-button">
-                    <img src="/menu-icon.svg" alt="Folder">
-                  </button>
-                </div>
-                <div class="additional-info">300KB • 3 files • 21/04/26</div>
-              </div>
-            </div>
-            <div class="folder-card">
-              <div class="icon">
-                <img src="/folder-icon.svg" alt="Folder">
-              </div>
-              <div class="card-content">
-                <div class="top-row">
-                  <div class="folder-name">Test123</div>
-                  <button class="menu-button">
-                    <img src="/menu-icon.svg" alt="Folder">
-                  </button>
-                </div>
-                <div class="additional-info">300KB • 3 files • 21/04/26</div>
-              </div>
-            </div>
-            <div class="folder-card">
-              <div class="icon">
-                <img src="/folder-icon.svg" alt="Folder">
-              </div>
-              <div class="card-content">
-                <div class="top-row">
-                  <div class="folder-name">Test123</div>
-                  <button class="menu-button">
-                    <img src="/menu-icon.svg" alt="Folder">
-                  </button>
-                </div>
-                <div class="additional-info">300KB • 3 files • 21/04/26</div>
-              </div>
-            </div>
+                <% })}} %>
 
 
           </div>
@@ -172,7 +81,7 @@
     </div>
 
 
-    <dialog class="add-folder-dialog" closeby="any">
+    <dialog class="add-folder-dialog" closeby="any" <%=keepAddFolderDialogOpen? "open" : "" %>>
       <div class="dialog-container">
         <div class="dialog-header">
           <div class="dialog-info">
@@ -184,15 +93,19 @@
           </button>
         </div>
         <div class="dialog-content">
-          <form action="/folder/new" method="POST">
-            <div class="input-container">
-              <input type="text" placeholder="Enter Folder Name" name="folderName" required>
-            </div>
-            <div class="dialog-button-group">
-              <input type="reset" value="Cancel" class="secondary-button">
-              <input type="submit" value="Create" class="primary-button">
-            </div>
-          </form>
+          <% if(locals.errors) { %>
+            <%- include("./errors/errors") %>
+              <% } %>
+                <form action="/folder/new" method="POST">
+                  <div class="input-container">
+                    <input type="text" placeholder="Enter Folder Name" name="folderName" required
+                      value="<%= oldData.folderName%>">
+                  </div>
+                  <div class="dialog-button-group">
+                    <input type="reset" value="Cancel" class="secondary-button">
+                    <input type="submit" value="Create" class="primary-button">
+                  </div>
+                </form>
         </div>
       </div>
       </div>

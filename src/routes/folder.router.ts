@@ -1,8 +1,15 @@
 import { Router } from "express";
-import DashboardController from "../controllers/folder.controller";
+import FolderController from "../controllers/folder.controller";
+import folderValidator from "../validators/folderValidator";
 
 const folderRouter = Router();
 
-folderRouter.get("/all", DashboardController.allFoldersPageGet);
+folderRouter.get("/all", FolderController.allFoldersPageGet);
+
+folderRouter.post(
+  "/new",
+  folderValidator.folderNameRules,
+  FolderController.addFolderPost,
+);
 
 export default folderRouter;
