@@ -389,7 +389,7 @@ a {
   background-color: #252933;
   border: 1px solid #333A4A;
   padding: 0.375rem;
-  border-radius: 0.75rem;
+  border-radius: 0.5rem;
   width: 100%;
   display: flex;
   flex-direction: row;
@@ -402,7 +402,7 @@ a {
 
 input {
   flex: 1;
-  border-radius: 0.45rem;
+  border-radius: 0.3rem;
   outline: none;
   background-color: #1C1F27;
   border: none;
@@ -624,6 +624,13 @@ input {
   border-radius: 0.5rem;
   padding: 1rem 1.5rem;
   padding-right: 1rem;
+  transition: background-color 0.15s ease-out, transform 0.15s ease-out, filter 0.15s ease-out;
+}
+
+.folder-card:hover {
+  background-color: #1E2129;
+  transform: translateY(-0.125rem);
+  filter: drop-shadow(0 4px 6px rgba(0, 0, 0, 0.1));
 }
 
 .folder-card .icon {
@@ -656,6 +663,11 @@ input {
   flex-direction: row;
   align-items: center;
   justify-content: center;
+  transition: background-color 0.15s ease-out;
+}
+
+.folder-card:hover .menu-button {
+  background-color: #333A4A;
 }
 
 .folder-card .folder-name {
@@ -669,4 +681,131 @@ input {
   color: #B8B8B8;
   font-weight: 500;
   font-size: 0.9rem;
+}
+
+dialog {
+  position: relative;
+  z-index: 100;
+  animation: fade-out 0.3s ease-out;
+}
+
+dialog:open {
+  animation: fade-in 0.3s ease-out;
+}
+
+dialog:open::backdrop {
+  animation: backdrop-fade-in 0.2s ease-out forwards;
+}
+
+/* Animation keyframes */
+
+@keyframes fade-in {
+  0% {
+    opacity: 0;
+    display: none;
+  }
+
+  100% {
+    opacity: 1;
+    display: block;
+  }
+}
+
+@keyframes fade-out {
+  0% {
+    opacity: 1;
+    display: block;
+  }
+
+  100% {
+    opacity: 0;
+    display: none;
+  }
+}
+
+@keyframes backdrop-fade-in {
+  0% {
+    background-color: rgb(0 0 0 / 0%);
+  }
+
+  100% {
+    background-color: rgb(0 0 0 / 5%);
+  }
+}
+
+.add-folder-dialog {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  border: 1px solid #333A4A;
+  border-radius: 0.5rem;
+  width: 360px;
+  box-sizing: border-box;
+  background-color: #1E2129;
+  filter: drop-shadow(0px 46px 130px rgba(0, 0, 0, 35%));
+  margin: 0;
+  padding: 0;
+}
+
+.add-folder-dialog>.dialog-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.add-folder-dialog>.dialog-container>.dialog-header {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 1.25rem;
+  font-weight: 600;
+  background-color: #252933;
+  padding: 0.75rem 1rem;
+}
+
+.add-folder-dialog>.dialog-container>.dialog-header>.dialog-info {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 1rem;
+}
+
+.add-folder-dialog>.dialog-container>.dialog-header>.dialog-info>img {
+  height: 1.5rem;
+}
+
+.add-folder-dialog>.dialog-container>.dialog-header>.dialog-info>.dialog-name {
+  color: #f4f4f4;
+  font-size: 1.125rem;
+}
+
+.add-folder-dialog>.dialog-container>.dialog-header>.close-dialog-button {
+  background-color: #282B33;
+  border-radius: 0.35rem;
+  padding: 0.5rem;
+  border: none;
+  height: 1.8rem;
+  width: 1.8rem;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.15s ease-out;
+}
+
+.add-folder-dialog>.dialog-container>.dialog-header>.close-dialog-button:hover {
+  transform: scale(1.2);
+}
+
+.add-folder-dialog>.dialog-container>.dialog-content {
+  padding: 1rem;
+  padding-top: 1.125rem;
+}
+
+.add-folder-dialog>.dialog-container>.dialog-content>.button-group {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-top: 0.5rem;
 }

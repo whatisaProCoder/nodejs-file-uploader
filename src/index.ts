@@ -10,8 +10,8 @@ import userMiddleware from "./middleware/user.middleware";
 import errorMiddleware from "./middleware/error.middleware";
 import homeRouter from "./routes/home.router";
 import authRouter from "./routes/auth.router";
-import dashboardRouter from "./routes/dashboard.router";
 import { isAuth } from "./middleware/auth.middleware";
+import folderRouter from "./routes/folder.router";
 
 const app: Express = express();
 
@@ -46,7 +46,7 @@ app.use("/", homeRouter);
 
 app.use("/auth", authRouter);
 
-app.use("/dashboard", isAuth, dashboardRouter);
+app.use("/folder", isAuth, folderRouter);
 
 app.get("/{*splat}", (_req, res) => {
   res.status(404).send("404");

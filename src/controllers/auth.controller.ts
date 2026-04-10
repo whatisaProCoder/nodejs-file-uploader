@@ -7,7 +7,7 @@ import { User } from "../generated/prisma/client";
 
 const signUpPageGet: RequestHandler = (req, res) => {
   if (req.isAuthenticated()) {
-    return res.redirect("/dashboard");
+    return res.redirect("/folder/all");
   }
   res.render("sign-up", { oldData: {} });
 };
@@ -39,7 +39,7 @@ const signUpPagePost: RequestHandler = async (req, res, next) => {
 
 const loginPageGet: RequestHandler = (req, res) => {
   if (req.isAuthenticated()) {
-    return res.redirect("/dashboard");
+    return res.redirect("/folder/all");
   }
   res.render("log-in", { oldData: {} });
 };
@@ -59,7 +59,7 @@ const loginPagePost: RequestHandler = async (req, res, next) => {
 
       req.logIn(user, (err) => {
         if (err) return next(err);
-        return res.redirect("/dashboard");
+        return res.redirect("/folder/all");
       });
     },
   )(req, res, next);
