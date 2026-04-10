@@ -609,3 +609,64 @@ input {
   border-radius: 0.375rem;
   font-family: "Geist";
 }
+
+.folders-section .folder-grid {
+  margin-top: 2.5rem;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 1rem;
+}
+
+.folder-card {
+  display: flex;
+  flex-direction: row;
+  border: 1px solid #333A4A;
+  border-radius: 0.5rem;
+  padding: 1rem 1.5rem;
+  padding-right: 1rem;
+}
+
+.folder-card .icon {
+  margin-right: 1rem;
+}
+
+.folder-card .card-content {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  height: 100%;
+  flex: 1;
+}
+
+.folder-card .top-row {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 1rem;
+}
+
+.menu-button {
+  background-color: #282B33;
+  border-radius: 0.35rem;
+  padding: 0.5rem;
+  border: none;
+  height: 1.8rem;
+  width: 1.8rem;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
+
+.folder-card .folder-name {
+  font-family: "Righteous";
+  font-size: 1.25rem;
+  color: #f4f4f4;
+  flex: 1;
+}
+
+.folder-card .additional-info {
+  color: #B8B8B8;
+  font-weight: 500;
+  font-size: 0.9rem;
+}
