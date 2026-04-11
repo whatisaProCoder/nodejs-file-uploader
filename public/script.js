@@ -193,7 +193,7 @@ document.querySelectorAll(".folder-menu-button")
           console.log(`/folder/${folderId}/delete`);
         }, "/delete-icon.svg"),
       ],
-      height: "160px",
+      height: "158px",
       width: "140px",
     }).setEventListeners();
   });
