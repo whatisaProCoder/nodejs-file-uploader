@@ -22,7 +22,6 @@ const allFoldersPageGet: RequestHandler = async (_req, res) => {
       },
     },
   });
-  console.log(allFolders);
 
   res.render("folders", {
     keepAddFolderDialogOpen: false,
