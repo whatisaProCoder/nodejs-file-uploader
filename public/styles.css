@@ -657,7 +657,7 @@ input[type="password"] {
   gap: 1rem;
 }
 
-.menu-button {
+.folder-menu-button {
   background-color: #282B33;
   border-radius: 0.35rem;
   padding: 0.5rem;
@@ -671,7 +671,7 @@ input[type="password"] {
   transition: background-color 0.15s ease-out;
 }
 
-.folder-card:hover .menu-button {
+.folder-card:hover .folder-menu-button {
   background-color: #333A4A;
 }
 
@@ -847,4 +847,147 @@ dialog:open::backdrop {
 
 .add-folder-dialog>.dialog-container>.dialog-content .dialog-button-group>.primary-button:hover {
   background-color: #399cee;
+}
+
+@font-face {
+  font-family: "Inter";
+  src: url("../fonts/Inter.ttf") format("truetype");
+}
+
+.mycdm-flex {
+  display: flex;
+}
+
+.mycdm-flex-col {
+  flex-direction: column;
+}
+
+.mycdm-border-1 {
+  border-width: 1px;
+  border-style: solid;
+}
+
+.mycdm-border-b-1 {
+  border-bottom-width: 1px;
+  border-bottom-style: solid;
+}
+
+.mycdm-border-gray {
+  border-color: #333A4A;
+}
+
+.mycdm-bg-light {
+  background-color: #1E2129;
+}
+
+.mycdm-hover-bg-medium:hover {
+  background-color: #292D38;
+}
+
+.mycdm-active-bg-dark-medium:active {
+  background-color: #333A4A;
+}
+
+.mycdm-rounded-md {
+  border-radius: 0.5rem;
+}
+
+.mycdm-shadow {
+  filter: drop-shadow(0 4px 6px rgba(0, 0, 0, 0.1));
+}
+
+.mycdm-font-semibold {
+  font-weight: 600;
+}
+
+.mycdm-text-xl {
+  font-size: 1.25rem;
+  line-height: 1.75rem;
+}
+
+.mycdm-text-dark {
+  color: #3c3c3c;
+}
+
+.mycdm-px-4 {
+  padding-left: 1rem;
+  padding-right: 1rem;
+}
+
+.mycdm-py-2-5 {
+  padding-top: 0.625rem;
+  padding-bottom: 0.625rem;
+}
+
+.mycdm-p-4 {
+  padding: 1rem;
+}
+
+.mycdm-mt-2 {
+  margin-top: 0.5rem;
+}
+
+.mycdm-fade-in {
+  animation: mycdm-fadeIn 0.3s ease;
+  opacity: 1;
+}
+
+.mycdm-fade-out {
+  animation: mycdm-fadeOut 0.3s ease;
+  opacity: 0;
+}
+
+@keyframes mycdm-fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0px);
+  }
+}
+
+@keyframes mycdm-fadeOut {
+  from {
+    opacity: 1;
+  }
+
+  to {
+    opacity: 0;
+  }
+}
+
+.mycdm-menu-card {
+  z-index: 1000;
+  transition: all 0.3s ease;
+  font-family: "Inter";
+}
+
+.mycdm-menu-title {
+  user-select: none;
+}
+
+.mycdm-action-item {
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+  font-family: "Geist";
+  font-weight: 500;
+  margin: 0.5rem;
+  border-radius: 0.25rem;
+}
+
+.mycdm-action-item:hover {
+  transition: background-color 0.15s ease;
+}
+
+.mycdm-action-item:active {
+  transition: background-color 0.1s ease;
+}
+
+.mycdm-flex-row {
+  display: flex;
+  flex-direction: row;
+  gap: 1rem;
 }

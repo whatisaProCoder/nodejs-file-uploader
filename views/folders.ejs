@@ -62,7 +62,8 @@
                       <div class="folder-name">
                         <%= folder.name %>
                       </div>
-                      <button class="menu-button">
+                      <button class="folder-menu-button" id="folder-menu-<%= folder.id %>"
+                        data-folder-id="<%= folder.id %>">
                         <img src="/menu-icon.svg" alt="Folder">
                       </button>
                     </div>
