@@ -196,6 +196,6 @@ document.querySelectorAll(".folder-menu-button")
       height: "160px",
       width: "140px",
     }).setEventListeners();
-  })
+  });
 
 
