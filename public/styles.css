@@ -800,10 +800,6 @@ dialog:open::backdrop {
   transition: transform 0.15s ease-out;
 }
 
-.add-folder-dialog>.dialog-container>.dialog-header>.close-dialog-button:hover {
-  transform: scale(1.2);
-}
-
 .add-folder-dialog>.dialog-container>.dialog-content {
   padding: 1rem;
   padding-top: 1.125rem;
@@ -1053,10 +1049,6 @@ dialog:open::backdrop {
   transition: transform 0.15s ease-out;
 }
 
-.edit-folder-dialog>.dialog-container>.dialog-header>.close-dialog-button:hover {
-  transform: scale(1.2);
-}
-
 .edit-folder-dialog>.dialog-container>.dialog-content {
   padding: 1rem;
   padding-top: 1.125rem;
@@ -1193,10 +1185,6 @@ dialog:open::backdrop {
   transition: transform 0.15s ease-out;
 }
 
-.delete-folder-dialog>.dialog-container>.dialog-header>.close-dialog-button:hover {
-  transform: scale(1.2);
-}
-
 .delete-folder-dialog>.dialog-container>.dialog-content {
   padding: 1rem;
   padding-top: 1.125rem;
@@ -1279,6 +1267,7 @@ dialog:open::backdrop {
 .delete-folder-dialog>.dialog-container>.dialog-content>.action-info>.prompt {
   color: #b8b8b8;
   font-size: 1.05rem;
+  font-weight: 500;
 }
 
 .delete-folder-dialog>.dialog-container>.dialog-content>.action-info>.red-chip {
