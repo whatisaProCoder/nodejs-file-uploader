@@ -12,4 +12,10 @@ folderRouter.post(
   FolderController.addFolderPost,
 );
 
+folderRouter.post(
+  "/:id/edit",
+  folderValidator.folderNameRules,
+  FolderController.editFolderPost,
+);
+
 export default folderRouter;

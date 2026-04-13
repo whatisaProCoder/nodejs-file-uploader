@@ -12,7 +12,7 @@ window.onscroll = () => {
 
 const addNewFolderButton = document.querySelector(".folders-section .new-button")
 const addNewFolderDialog = document.querySelector(".add-folder-dialog");
-const closeNewFolderDialog = document.querySelector(".close-dialog-button");
+const closeNewFolderDialog = document.querySelector(".add-folder-dialog .close-dialog-button");
 
 addNewFolderButton.addEventListener("click", () => {
   addNewFolderDialog.showModal();
@@ -179,6 +179,7 @@ class ActionItem {
 document.querySelectorAll(".folder-menu-button")
   .forEach(button => {
     const folderId = button.dataset.folderId;
+    const folderName = button.dataset.folderName;
 
     new CustomDropDownMenu({
       triggerElementID: `folder-menu-${folderId}`,
@@ -187,7 +188,7 @@ document.querySelectorAll(".folder-menu-button")
           console.log(`/folder/${folderId}/share`);
         }, "/share-icon.svg"),
         new ActionItem("Edit", () => {
-          console.log(`/folder/${folderId}/edit`);
+          openEditFolderDialog(folderName, folderId);
         }, "/edit-icon.svg"),
         new ActionItem("Delete", () => {
           console.log(`/folder/${folderId}/delete`);
@@ -198,4 +199,32 @@ document.querySelectorAll(".folder-menu-button")
     }).setEventListeners();
   });
 
+const editFolderDialog = document.querySelector(".edit-folder-dialog");
 
+function openEditFolderDialog(selectedFolderName, selectedFolderID) {
+  const formElement = document.querySelector(".edit-folder-dialog form");
+
+  formElement.action = `/folder/${selectedFolderID}/edit`;
+
+  const folderNameElement = document.querySelector(".edit-folder-dialog .folder-name");
+
+  folderNameElement.textContent = selectedFolderName;
+
+  const inputField = document.querySelector("#edit-folder-name-input-field");
+
+  inputField.textContent = "";
+
+  editFolderDialog.showModal();
+}
+
+const closeEditFolderDialogButton = document.querySelector(".edit-folder-dialog .close-dialog-button");
+
+closeEditFolderDialogButton.addEventListener("click", () => {
+  editFolderDialog.close();
+
+  console.log("hello")
+
+  const inputField = document.querySelector("#edit-folder-name-input-field");
+
+  inputField.value = "";
+})
