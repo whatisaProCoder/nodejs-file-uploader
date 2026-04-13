@@ -191,13 +191,15 @@ document.querySelectorAll(".folder-menu-button")
           openEditFolderDialog(folderName, folderId);
         }, "/edit-icon.svg"),
         new ActionItem("Delete", () => {
-          console.log(`/folder/${folderId}/delete`);
+          openDeleteFolderDialog(folderName, folderId);
         }, "/delete-icon.svg"),
       ],
       height: "158px",
       width: "140px",
     }).setEventListeners();
   });
+
+// edit form
 
 const editFolderDialog = document.querySelector(".edit-folder-dialog");
 
@@ -222,9 +224,35 @@ const closeEditFolderDialogButton = document.querySelector(".edit-folder-dialog 
 closeEditFolderDialogButton.addEventListener("click", () => {
   editFolderDialog.close();
 
-  console.log("hello")
-
   const inputField = document.querySelector("#edit-folder-name-input-field");
 
   inputField.value = "";
 })
+
+// delete form
+
+const deleteFolderDialog = document.querySelector(".delete-folder-dialog");
+
+function openDeleteFolderDialog(selectedFolderName, selectedFolderID) {
+  const formElement = document.querySelector(".delete-folder-dialog form");
+
+  formElement.action = `/folder/${selectedFolderID}/delete`;
+
+  const folderNameElement = document.querySelector(".delete-folder-dialog .folder-name");
+
+  folderNameElement.textContent = selectedFolderName;
+
+  deleteFolderDialog.showModal();
+}
+
+const closeDeleteFolderDialogButton = document.querySelector(".delete-folder-dialog .close-dialog-button");
+
+const deleteDialogCancelButton = document.querySelector("#delete-dialog-cancel-button");
+
+closeDeleteFolderDialogButton.addEventListener("click", () => {
+  deleteFolderDialog.close();
+});
+
+deleteDialogCancelButton.addEventListener("click", () => {
+  deleteFolderDialog.close();
+});

@@ -18,4 +18,6 @@ folderRouter.post(
   FolderController.editFolderPost,
 );
 
+folderRouter.post("/:id/delete", FolderController.deleteFolderPost);
+
 export default folderRouter;

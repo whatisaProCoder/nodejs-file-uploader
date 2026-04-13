@@ -52,34 +52,42 @@
           <% if(locals.errors) { %>
             <%- include("./errors/errors") %>
               <% } %>
-                <div class="folder-grid">
-                  <% if(locals.allFolders) { %>
-                    <% if(allFolders.length!=0) { allFolders.forEach((folder)=> { %>
 
-                      <div class="folder-card">
-                        <div class="icon">
-                          <img src="/folder-icon.svg" alt="Folder">
-                        </div>
-                        <div class="card-content">
-                          <div class="top-row">
-                            <div class="folder-name">
-                              <%= folder.name %>
+                <% if(locals.allFolders) { %>
+                  <% if(allFolders.length!=0) { %>
+                    <div class="folder-grid">
+                      <% allFolders.forEach((folder)=> { %>
+
+                        <div class="folder-card">
+                          <div class="icon">
+                            <img src="/folder-icon.svg" alt="Folder">
+                          </div>
+                          <div class="card-content">
+                            <div class="top-row">
+                              <div class="folder-name">
+                                <%= folder.name %>
+                              </div>
+                              <button class="folder-menu-button" id="folder-menu-<%= folder.id %>"
+                                data-folder-id="<%= folder.id %>" data-folder-name="<%= folder.name %>">
+                                <img src="/menu-icon.svg" alt="Folder">
+                              </button>
                             </div>
-                            <button class="folder-menu-button" id="folder-menu-<%= folder.id %>"
-                              data-folder-id="<%= folder.id %>" data-folder-name="<%= folder.name %>">
-                              <img src="/menu-icon.svg" alt="Folder">
-                            </button>
-                          </div>
-                          <div class="additional-info">300KB • 3 files • <%= new Intl.DateTimeFormat('en-IN', {
-                              dateStyle:'medium' } ).format(new Date(folder.createdAt)) %>
+                            <div class="additional-info">300KB • 3 files • <%= new Intl.DateTimeFormat('en-IN', {
+                                dateStyle:'medium' } ).format(new Date(folder.createdAt)) %>
+                            </div>
                           </div>
                         </div>
+
+
+                        <% }) %>
+
+                    </div>
+
+                    <%} else {%>
+                      <div class="empty">
+                        <div class="line-1"></div>No folders yet!<div class="line-2"></div>
                       </div>
-
-                      <% })}} %>
-
-
-                </div>
+                      <% }} %>
         </div>
       </div>
     </div>
@@ -137,6 +145,42 @@
             <div class="dialog-button-group">
               <input type="reset" value="Cancel" class="secondary-button">
               <input type="submit" value="Rename" class="primary-button">
+            </div>
+          </form>
+
+        </div>
+      </div>
+      </div>
+    </dialog>
+
+
+
+    <dialog class="delete-folder-dialog" closeby="any">
+      <div class="dialog-container">
+        <div class="dialog-header">
+          <div class="dialog-info">
+            <img src="/delete-icon.svg" alt="Edit">
+            <div class="dialog-name">Delete</div>
+          </div>
+          <button class="close-dialog-button">
+            <img src="/close-dialog-icon.svg" alt="Close">
+          </button>
+        </div>
+        <div class="dialog-content">
+          <div class="folder-info">
+            <img src="/folder-icon.svg" alt="Folder">
+            <div class="folder-name">Test123</div>
+          </div>
+
+          <div class="action-info">
+            <div class="prompt">Are you sure you want to delete?</div>
+            <div class="red-chip">You’ll loose files in this folder, if any</div>
+          </div>
+
+          <form method="POST">
+            <div class="dialog-button-group">
+              <input type="reset" value="Cancel" class="secondary-button" id="delete-dialog-cancel-button">
+              <input type="submit" value="Delete" class="primary-button">
             </div>
           </form>
 
