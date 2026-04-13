@@ -72,9 +72,9 @@
                                 <img src="/menu-icon.svg" alt="Folder">
                               </button>
                             </div>
-                            <a href="/folder/<%=folder.id%>" class="additional-info">300KB • 3 files • <%= new
-                                Intl.DateTimeFormat('en-IN', { dateStyle:'medium' } ).format(new Date(folder.createdAt))
-                                %>
+                            <a href="/folder/<%=folder.id%>" class="additional-info">300KB • 3 files • <span id="date">
+                                <%= folder.createdAt %>
+                              </span>
                             </a>
                           </div>
                         </div>
@@ -86,7 +86,7 @@
 
                     <%} else {%>
                       <div class="empty">
-                        <div class="line-1"></div>No folders yet! Create a folder to continue.<div class="line-2"></div>
+                        <div class="line-1"></div>No folders! Create a folder to continue.<div class="line-2"></div>
                       </div>
                       <% }} %>
         </div>

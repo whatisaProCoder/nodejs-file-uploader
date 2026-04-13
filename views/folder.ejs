@@ -53,8 +53,9 @@
                                 <img src="/menu-icon.svg" alt="File">
                               </button>
                             </div>
-                            <div class="additional-info">300KB • JPEG • <%= new Intl.DateTimeFormat('en-IN', {
-                                dateStyle:'medium' } ).format(new Date(file.createdAt)) %>
+                            <div class="additional-info">300KB • JPEG • <span id="date">
+                                <%= file.createdAt %>
+                              </span>
                             </div>
                           </div>
                         </div>

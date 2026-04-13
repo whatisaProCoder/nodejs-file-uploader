@@ -14,11 +14,11 @@ const addNewFolderButton = document.querySelector(".folders-section .new-button"
 const addNewFolderDialog = document.querySelector(".add-folder-dialog");
 const closeNewFolderDialog = document.querySelector(".add-folder-dialog .close-dialog-button");
 
-addNewFolderButton.addEventListener("click", () => {
+addNewFolderButton?.addEventListener("click", () => {
   addNewFolderDialog.showModal();
 })
 
-closeNewFolderDialog.addEventListener("click", () => {
+closeNewFolderDialog?.addEventListener("click", () => {
   addNewFolderDialog.close();
 });
 
@@ -176,7 +176,7 @@ class ActionItem {
   }
 }
 
-document.querySelectorAll(".folder-menu-button")
+document?.querySelectorAll(".folder-menu-button")
   .forEach(button => {
     const folderId = button.dataset.folderId;
     const folderName = button.dataset.folderName;
@@ -221,7 +221,7 @@ function openEditFolderDialog(selectedFolderName, selectedFolderID) {
 
 const closeEditFolderDialogButton = document.querySelector(".edit-folder-dialog .close-dialog-button");
 
-closeEditFolderDialogButton.addEventListener("click", () => {
+closeEditFolderDialogButton?.addEventListener("click", () => {
   editFolderDialog.close();
 
   const inputField = document.querySelector("#edit-folder-name-input-field");
@@ -249,10 +249,23 @@ const closeDeleteFolderDialogButton = document.querySelector(".delete-folder-dia
 
 const deleteDialogCancelButton = document.querySelector("#delete-dialog-cancel-button");
 
-closeDeleteFolderDialogButton.addEventListener("click", () => {
+closeDeleteFolderDialogButton?.addEventListener("click", () => {
   deleteFolderDialog.close();
 });
 
-deleteDialogCancelButton.addEventListener("click", () => {
+deleteDialogCancelButton?.addEventListener("click", () => {
   deleteFolderDialog.close();
 });
+
+// converting all dates on screen for client timezone
+
+const dates = document.querySelectorAll("#date");
+
+dates.forEach(date => {
+  const universalDateTime = date.textContent;
+
+  const userDateTime = new
+    Intl.DateTimeFormat('en-IN', { dateStyle: 'medium' }).format(new Date(universalDateTime));
+
+  date.textContent = userDateTime;
+})
