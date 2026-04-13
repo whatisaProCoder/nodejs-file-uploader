@@ -61,13 +61,14 @@ const editFolderPost: RequestHandler = async (req, res, next) => {
     await prisma.folder.update({
       where: {
         id: folderID,
+        authorID: res.locals.currentUser.id,
       },
       data: {
         name: folderName,
       },
     });
   } catch (err) {
-    next(err);
+    return next(err);
   }
 
   res.redirect("/folder/all");
@@ -78,26 +79,29 @@ const deleteFolderPost: RequestHandler = async (req, res, next) => {
 
   try {
     await prisma.folder.delete({
-      where: { id: folderID },
+      where: { id: folderID, authorID: res.locals.currentUser.id },
     });
   } catch (err) {
-    next(err);
+    return next(err);
   }
 
   res.redirect("/folder/all");
 };
 
-const folderPageGet: RequestHandler = async (req, res, _next) => {
+const folderPageGet: RequestHandler = async (req, res) => {
   const folderID = Number(req.params.id);
 
   const folder = await prisma.folder.findUnique({
-    where: { id: folderID },
+    where: { id: folderID, authorID: res.locals.currentUser.id },
     include: {
       files: true,
     },
   });
 
-  res.render("folder", { folder: folder });
+  if (folder) res.render("folder", { folder: folder });
+  else {
+    res.status(403).send("Folder Access Denied");
+  }
 };
 
 const FolderController = {
