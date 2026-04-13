@@ -13,69 +13,49 @@
   <%- include("./partials/header") %>
     <div class="content-container">
       <div class="content">
-        <div class="banner">
-          <div class="greeting">
-            <div class="text">Welcome, <%= currentUser?.firstName %>!
-            </div>
-            <div class="subtext">Upload, organize, and manage your files effortlessly.</div>
-          </div>
-          <div class="metrics">
-            <div class="metric">
-              <div class="metrics-title">Total Folders</div>
-              <div class="value">10</div>
-            </div>
-            <div class="line"></div>
-            <div class="metric files">
-              <div class="metrics-title">Total Files</div>
-              <div class="value">20</div>
-            </div>
-            <div class="line files"></div>
-            <div class="metric">
-              <div class="metrics-title">Storage Used</div>
-              <div class="value">34<span class="unit">%</span></div>
-            </div>
-            <div class="line"></div>
-            <div class="metric">
-              <div class="metrics-title">Total Storage</div>
-              <div class="value">50<span class="unit">MB</span></div>
-            </div>
-          </div>
-        </div>
-        <div class="folders-section">
+
+        <div class="files-section">
           <div class="top-bar">
-            <div class="section-title">Your Folders</div>
+            <div class="left-group">
+              <a class="back-button" href="/folder/all">
+                <img src="/back-button.svg" alt="Go Back">
+              </a>
+              <img src="/folder-icon.svg" alt="Folder" class="folder-icon">
+              <div class="section-title">
+                <%= folder.name %>
+              </div>
+            </div>
             <button class="new-button">
               <img src="/plus-icon.svg" alt="Add">
-              New Folder
+              New File
             </button>
           </div>
           <% if(locals.errors) { %>
             <%- include("./errors/errors") %>
               <% } %>
 
-                <% if(locals.allFolders) { %>
-                  <% if(allFolders.length!=0) { %>
-                    <div class="folder-grid">
-                      <% allFolders.forEach((folder)=> { %>
+                <% if(locals.folder.files) { %>
+                  <% if(folder.files.length!=0) { %>
+                    <div class="files-grid">
+                      <% folder.files.forEach((file)=> { %>
 
-                        <div class="folder-card">
-                          <a class="icon" href="/folder/<%=folder.id%>">
-                            <img src="/folder-icon.svg" alt="Folder">
-                          </a>
+                        <div class="file-card">
+                          <div class="icon">
+                            <img src="/file-icon.svg" alt="File">
+                          </div>
                           <div class="card-content">
                             <div class="top-row">
-                              <a class="folder-name" href="/folder/<%=folder.id%>">
-                                <%= folder.name %>
-                              </a>
-                              <button class="folder-menu-button" id="folder-menu-<%= folder.id %>"
-                                data-folder-id="<%= folder.id %>" data-folder-name="<%= folder.name %>">
-                                <img src="/menu-icon.svg" alt="Folder">
+                              <div class="file-name">
+                                <%= file.name %>
+                              </div>
+                              <button class="file-menu-button" id="file-menu-<%= file.id %>"
+                                data-file-id="<%= file.id %>" data-file-name="<%= file.name %>">
+                                <img src="/menu-icon.svg" alt="File">
                               </button>
                             </div>
-                            <a href="/folder/<%=folder.id%>" class="additional-info">300KB • 3 files • <%= new
-                                Intl.DateTimeFormat('en-IN', { dateStyle:'medium' } ).format(new Date(folder.createdAt))
-                                %>
-                            </a>
+                            <div class="additional-info">300KB • JPEG • <%= new Intl.DateTimeFormat('en-IN', {
+                                dateStyle:'medium' } ).format(new Date(file.createdAt)) %>
+                            </div>
                           </div>
                         </div>
 
@@ -86,7 +66,7 @@
 
                     <%} else {%>
                       <div class="empty">
-                        <div class="line-1"></div>No folders yet! Create a folder to continue.<div class="line-2"></div>
+                        <div class="line-1"></div>No files yet! Upload a file to continue.<div class="line-2"></div>
                       </div>
                       <% }} %>
         </div>

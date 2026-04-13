@@ -87,11 +87,25 @@ const deleteFolderPost: RequestHandler = async (req, res, next) => {
   res.redirect("/folder/all");
 };
 
+const folderPageGet: RequestHandler = async (req, res, _next) => {
+  const folderID = Number(req.params.id);
+
+  const folder = await prisma.folder.findUnique({
+    where: { id: folderID },
+    include: {
+      files: true,
+    },
+  });
+
+  res.render("folder", { folder: folder });
+};
+
 const FolderController = {
   allFoldersPageGet,
   addFolderPost,
   editFolderPost,
   deleteFolderPost,
+  folderPageGet,
 };
 
 export default FolderController;
