@@ -276,15 +276,18 @@ const addNewFileDialog = document.querySelector(".add-file-dialog");
 const closeAddNewFileDialog = document.querySelector(".add-file-dialog .close-dialog-button")
 const addNewFileButton = document.querySelector(".files-section .new-button");
 const fileField = document.querySelector("#file");
+const fileNameInputField = document.querySelector("#file-name-input-field");
 
 addNewFileButton?.addEventListener("click", () => {
   fileField.value = "";
+  fileNameInputField.value = "";
   addNewFileDialog.showModal();
 });
 
 closeAddNewFileDialog?.addEventListener("click", () => {
   addNewFileDialog.close();
   fileField.value = "";
+  fileNameInputField.value = "";
 });
 
 fileField?.addEventListener("change", (event) => {
@@ -295,6 +298,11 @@ fileField?.addEventListener("change", (event) => {
 
   if (file.size > 15 * 1024 * 1024) {
     alert("File must be under 15 MB");
+    fileField.value = "";
+  }
+
+  if (file.name.length > 100) {
+    alert("File name must be under 100 characters");
     fileField.value = "";
   }
 });

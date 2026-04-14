@@ -89,7 +89,8 @@
         <div class="dialog-content">
           <form action="/folder/<%= folder.id %>/file" method="POST" enctype="multipart/form-data">
             <div class="input-container">
-              <input type="text" placeholder="Enter File Name (optional)" name="fileName">
+              <input type="text" id="file-name-input-field" maxlength="100" placeholder="Enter File Name (optional)"
+                name="fileName">
             </div>
 
             <div class="input-container">

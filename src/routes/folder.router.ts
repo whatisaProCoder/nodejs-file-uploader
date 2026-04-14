@@ -3,6 +3,7 @@ import FolderController from "../controllers/folder.controller";
 import folderValidator from "../validators/folder.validator";
 import FileController from "../controllers/file.controller";
 import fileValidator from "../validators/file.validator";
+import upload from "../lib/multer";
 
 const folderRouter = Router();
 
@@ -24,6 +25,7 @@ folderRouter.post("/:id/delete", FolderController.deleteFolderPost);
 
 folderRouter.post(
   "/:id/file",
+  upload.single("uploadedFile"),
   fileValidator.fileUploadRules,
   FileController.uploadFilePost,
 );
