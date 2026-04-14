@@ -12,6 +12,7 @@ import homeRouter from "./routes/home.router";
 import authRouter from "./routes/auth.router";
 import { isAuth } from "./middleware/auth.middleware";
 import folderRouter from "./routes/folder.router";
+import fileRouter from "./routes/file.router";
 
 const app: Express = express();
 
@@ -47,6 +48,8 @@ app.use("/", homeRouter);
 app.use("/auth", authRouter);
 
 app.use("/folder", isAuth, folderRouter);
+
+app.use("/file", isAuth, fileRouter);
 
 app.get("/{*splat}", (_req, res) => {
   res.status(404).send("404");

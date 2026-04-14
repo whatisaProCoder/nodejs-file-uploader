@@ -75,25 +75,29 @@
     </div>
 
 
-    <dialog class="add-folder-dialog" closeby="any">
+    <dialog class="add-file-dialog" closeby="any">
       <div class="dialog-container">
         <div class="dialog-header">
           <div class="dialog-info">
-            <img src="/folder-icon-white.svg" alt="Folder">
-            <div class="dialog-name">New Folder</div>
+            <img src="/file-icon-white.svg" alt="File">
+            <div class="dialog-name">Upload File</div>
           </div>
           <button class="close-dialog-button">
             <img src="/close-dialog-icon.svg" alt="Close">
           </button>
         </div>
         <div class="dialog-content">
-          <form action="/folder/new" method="POST">
+          <form action="/folder/<%= folder.id %>/file" method="POST" enctype="multipart/form-data">
             <div class="input-container">
-              <input type="text" placeholder="Enter Folder Name" name="folderName" required>
+              <input type="text" placeholder="Enter File Name (optional)" name="fileName">
+            </div>
+
+            <div class="input-container">
+              <input type="file" id="file" value="Choose File" name="uploadedFile" required>
             </div>
             <div class="dialog-button-group">
               <input type="reset" value="Cancel" class="secondary-button">
-              <input type="submit" value="Create" class="primary-button">
+              <input type="submit" value="Upload" class="primary-button">
             </div>
           </form>
         </div>

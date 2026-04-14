@@ -269,3 +269,31 @@ dates.forEach(date => {
 
   date.textContent = userDateTime;
 })
+
+// files section
+
+const addNewFileDialog = document.querySelector(".add-file-dialog");
+const closeAddNewFileDialog = document.querySelector(".add-file-dialog .close-dialog-button")
+const addNewFileButton = document.querySelector(".files-section .new-button");
+const fileField = document.querySelector("#file");
+
+addNewFileButton?.addEventListener("click", () => {
+  addNewFileDialog.showModal();
+});
+
+closeAddNewFileDialog?.addEventListener("click", () => {
+  addNewFileDialog.close();
+  fileField.value = "";
+});
+
+fileField?.addEventListener("change", (event) => {
+
+  const file = fileField.files?.[0];
+
+  if (!file) return;
+
+  if (file.size > 15 * 1024 * 1024) {
+    alert("File must be under 15 MB");
+    fileField.value = "";
+  }
+});
