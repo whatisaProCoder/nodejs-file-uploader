@@ -278,6 +278,7 @@ const addNewFileButton = document.querySelector(".files-section .new-button");
 const fileField = document.querySelector("#file");
 
 addNewFileButton?.addEventListener("click", () => {
+  fileField.value = "";
   addNewFileDialog.showModal();
 });
 
