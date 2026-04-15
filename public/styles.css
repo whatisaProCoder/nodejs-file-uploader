@@ -641,14 +641,13 @@ input[type="password"] {
 }
 
 .folder-card .icon {
-  margin-right: 1rem;
+  padding-right: 1rem;
   height: 100%;
 }
 
 .folder-card .card-content {
   display: flex;
   flex-direction: column;
-  gap: 0.5rem;
   height: 100%;
   flex: 1;
 }
@@ -690,6 +689,7 @@ input[type="password"] {
   color: #B8B8B8;
   font-weight: 500;
   font-size: 0.9rem;
+  padding-top: 0.5rem;
 }
 
 dialog {
