@@ -306,3 +306,80 @@ fileField?.addEventListener("change", (event) => {
     fileField.value = "";
   }
 });
+
+
+// file menu buttons
+document?.querySelectorAll(".file-menu-button")
+  .forEach(button => {
+    const fileId = button.dataset.fileId;
+    const fileName = button.dataset.fileName;
+
+    new CustomDropDownMenu({
+      triggerElementID: `file-menu-${fileId}`,
+      actionItemArray: [
+        new ActionItem("Share", () => {
+          console.log(`/file/${fileId}/share`);
+        }, "/share-icon.svg"),
+        new ActionItem("Edit", () => {
+          openEditFileDialog(fileName, fileId);
+        }, "/edit-icon.svg"),
+        new ActionItem("Delete", () => {
+          openDeleteFileDialog(fileName, fileId);
+        }, "/delete-icon.svg"),
+      ],
+      height: "158px",
+      width: "140px",
+    }).setEventListeners();
+  });
+
+// edit file dialog
+
+const editFileDialog = document.querySelector(".edit-file-dialog");
+
+function openEditFileDialog(selectedFileName, selectedFileID) {
+  const formElement = document.querySelector(".edit-file-dialog form");
+
+  formElement.action = `/file/${selectedFileID}/edit`;
+
+  const fileNameElement = document.querySelector(".edit-file-dialog .file-name");
+
+  fileNameElement.textContent = selectedFileName;
+
+  const inputField = document.querySelector("#edit-file-name-input-field");
+
+  inputField.textContent = "";
+
+  editFileDialog.showModal();
+}
+
+const closeEditFileDialogButton = document.querySelector(".edit-file-dialog .close-dialog-button");
+
+closeEditFileDialogButton?.addEventListener("click", () => {
+  editFileDialog.close();
+
+  const inputField = document.querySelector("#edit-file-name-input-field");
+
+  inputField.value = "";
+})
+
+// delete file dialog
+
+const deleteFileDialog = document.querySelector(".delete-file-dialog");
+
+function openDeleteFileDialog(selectedFileName, selectedFileID) {
+  const formElement = document.querySelector(".delete-file-dialog form");
+
+  formElement.action = `/file/${selectedFileID}/delete`;
+
+  const folderNameElement = document.querySelector(".delete-file-dialog .file-name");
+
+  folderNameElement.textContent = selectedFileName;
+
+  deleteFileDialog.showModal();
+}
+
+const closeDeleteFileDialogButton = document.querySelector(".delete-file-dialog .close-dialog-button");
+
+closeDeleteFileDialogButton?.addEventListener("click", () => {
+  deleteFileDialog.close();
+});

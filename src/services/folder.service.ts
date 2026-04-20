@@ -22,8 +22,18 @@ const getUserFolders = async (userID: number) => {
   });
 };
 
+const getUserFolder = async (userID: number, folderID: number) => {
+  return await prisma.folder.findUnique({
+    where: { id: folderID, authorID: userID },
+    include: {
+      files: true,
+    },
+  });
+};
+
 const FolderService = {
   getUserFolders,
+  getUserFolder,
 };
 
 export default FolderService;

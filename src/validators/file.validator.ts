@@ -6,14 +6,28 @@ const maxChars = (maxLength: number) =>
 
 const fileUploadRules = [
   body("fileName")
+    .optional({ values: "falsy" })
     .trim()
-    .optional()
     .notEmpty()
     .withMessage("File name " + cannotBeEmpty)
     .isLength({ max: 100 })
     .withMessage("File name " + maxChars(100)),
 ];
 
-const fileValidator = { fileUploadRules };
+const fileEditRules = [
+  body("fileName")
+    .trim()
+    .notEmpty()
+    .withMessage("File name " + cannotBeEmpty)
+    .isLength({ max: 100 })
+    .withMessage("File name " + maxChars(100)),
+  body("folderID")
+    .notEmpty()
+    .withMessage("Folder ID not attached")
+    .isNumeric()
+    .withMessage("Folder ID must be numeric"),
+];
+
+const fileValidator = { fileUploadRules, fileEditRules };
 
 export default fileValidator;

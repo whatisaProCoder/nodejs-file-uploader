@@ -91,12 +91,10 @@ const deleteFolderPost: RequestHandler = async (req, res, next) => {
 const folderPageGet: RequestHandler = async (req, res) => {
   const folderID = Number(req.params.id);
 
-  const folder = await prisma.folder.findUnique({
-    where: { id: folderID, authorID: res.locals.currentUser.id },
-    include: {
-      files: true,
-    },
-  });
+  const folder = await FolderService.getUserFolder(
+    res.locals.currentUser.id,
+    folderID,
+  );
 
   if (folder) res.render("folder", { folder: folder });
   else {

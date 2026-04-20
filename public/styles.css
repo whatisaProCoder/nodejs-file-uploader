@@ -683,6 +683,10 @@ input[type="password"] {
   font-size: 1.25rem;
   color: #f4f4f4;
   flex: 1;
+  max-width: 190px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .folder-card .additional-info {
@@ -1025,7 +1029,7 @@ dialog:open::backdrop {
   gap: 0.9rem;
 }
 
-.add-folder-dialog>.dialog-container>.dialog-header>.dialog-info>img {
+.edit-folder-dialog>.dialog-container>.dialog-header>.dialog-info>img {
   height: 1.5rem;
 }
 
@@ -1300,7 +1304,13 @@ dialog:open::backdrop {
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 1.5rem;
+  margin-bottom: 1.25rem;
+  border-bottom: 1px solid #333A4A;
+  padding-left: 0.6rem;
+  padding-right: 0.6rem;
+  padding-bottom: 0.5rem;
+  border-bottom-left-radius: 0.5rem;
+  border-bottom-right-radius: 0.5rem;
 }
 
 @media screen and (max-width:768px) {
@@ -1371,7 +1381,6 @@ dialog:open::backdrop {
 }
 
 .files-section .files-grid {
-  margin-top: 1.5rem;
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
   gap: 1rem;
@@ -1401,7 +1410,6 @@ dialog:open::backdrop {
 .file-card .card-content {
   display: flex;
   flex-direction: column;
-  gap: 0.5rem;
   height: 100%;
   flex: 1;
 }
@@ -1410,7 +1418,8 @@ dialog:open::backdrop {
   display: flex;
   flex-direction: row;
   align-items: center;
-  gap: 1rem;
+  justify-content: space-between;
+  gap: 0.5rem;
 }
 
 .file-menu-button {
@@ -1437,12 +1446,17 @@ dialog:open::backdrop {
   font-size: 1.25rem;
   color: #f4f4f4;
   flex: 1;
+  max-width: 190px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .file-card .additional-info {
   color: #B8B8B8;
   font-weight: 500;
   font-size: 0.9rem;
+  padding-top: 0.5rem;
 }
 
 
@@ -1581,4 +1595,297 @@ input[type="file"]::file-selector-button {
 
 input[type="file"]::file-selector-button:hover {
   background-color: #399cee;
+}
+
+.edit-file-dialog {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  border: 1px solid #333A4A;
+  border-radius: 0.5rem;
+  width: 360px;
+  box-sizing: border-box;
+  background-color: #1E2129;
+  filter: drop-shadow(0px 4px 8px rgba(0, 0, 0, 0.53));
+  margin: 0;
+  padding: 0;
+}
+
+.edit-file-dialog>.dialog-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.edit-file-dialog>.dialog-container>.dialog-header {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 1.25rem;
+  font-weight: 600;
+  background-color: #252933;
+  padding: 0.65rem 0.9rem;
+}
+
+.edit-file-dialog>.dialog-container>.dialog-header>.dialog-info {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 0.9rem;
+}
+
+.add-folder-dialog>.dialog-container>.dialog-header>.dialog-info>img {
+  height: 1.5rem;
+}
+
+.edit-file-dialog>.dialog-container>.dialog-header>.dialog-info>.dialog-name {
+  color: #f4f4f4;
+  font-size: 1.125rem;
+}
+
+.edit-file-dialog>.dialog-container>.dialog-header>.dialog-info>img {
+  width: 1.75rem;
+}
+
+.edit-file-dialog>.dialog-container>.dialog-header>.close-dialog-button {
+  background-color: #282B33;
+  border-radius: 0.35rem;
+  padding: 0.5rem;
+  border: none;
+  height: 1.8rem;
+  width: 1.8rem;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.15s ease-out;
+}
+
+.edit-file-dialog>.dialog-container>.dialog-content {
+  padding: 1rem;
+  padding-top: 1.125rem;
+}
+
+.edit-file-dialog>.dialog-container>.dialog-content .dialog-button-group {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-top: 1rem;
+}
+
+.edit-file-dialog>.dialog-container>.dialog-content .dialog-button-group>.secondary-button {
+  flex: 1;
+  text-align: center;
+  border: 1px solid #333A4A;
+  padding: 0.5rem 2rem;
+  border-radius: 0.25rem;
+  font-size: 1rem;
+  font-weight: 500;
+  background-color: #252933;
+  color: #f4f4f4;
+  transition: background-color 0.15s ease-out;
+}
+
+.edit-file-dialog>.dialog-container>.dialog-content .dialog-button-group>.secondary-button:hover {
+  background-color: #292f3d;
+}
+
+.edit-file-dialog>.dialog-container>.dialog-content .dialog-button-group>.primary-button {
+  flex: 1;
+  text-align: center;
+  border: 1px solid #3C92D8;
+  padding: 0.5rem 2rem;
+  border-radius: 0.25rem;
+  font-size: 1rem;
+  font-weight: 500;
+  background-color: #238BE1;
+  color: #f4f4f4;
+  transition: background-color 0.15s ease-out;
+}
+
+.edit-file-dialog>.dialog-container>.dialog-content .dialog-button-group>.primary-button:hover {
+  background-color: #399cee;
+}
+
+.edit-file-dialog>.dialog-container>.dialog-content>.file-info {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  background-color: #252933;
+  border: 1px solid #333A4A;
+  border-radius: 2rem;
+  padding: 0.75rem 1rem;
+  margin-bottom: 1rem;
+}
+
+.edit-file-dialog>.dialog-container>.dialog-content>.file-info>.file-name {
+  font-family: "Righteous";
+  font-size: 1.25rem;
+  color: #f4f4f4;
+}
+
+.edit-file-dialog>.dialog-container>.dialog-content>.file-info>img {
+  width: 1.5rem;
+}
+
+.delete-file-dialog {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  border: 1px solid #333A4A;
+  border-radius: 0.5rem;
+  width: 360px;
+  box-sizing: border-box;
+  background-color: #1E2129;
+  filter: drop-shadow(0px 4px 8px rgba(0, 0, 0, 0.53));
+  margin: 0;
+  padding: 0;
+}
+
+.delete-file-dialog>.dialog-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.delete-file-dialog>.dialog-container>.dialog-header {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 1.25rem;
+  font-weight: 600;
+  background-color: #252933;
+  padding: 0.65rem 0.9rem;
+}
+
+.delete-file-dialog>.dialog-container>.dialog-header>.dialog-info {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 0.9rem;
+}
+
+.delete-file-dialog>.dialog-container>.dialog-header>.dialog-info>img {
+  height: 1.5rem;
+}
+
+.delete-file-dialog>.dialog-container>.dialog-header>.dialog-info>.dialog-name {
+  color: #f4f4f4;
+  font-size: 1.125rem;
+}
+
+.delete-file-dialog>.dialog-container>.dialog-header>.dialog-info>img {
+  width: 1.75rem;
+}
+
+.delete-file-dialog>.dialog-container>.dialog-header>.close-dialog-button {
+  background-color: #282B33;
+  border-radius: 0.35rem;
+  padding: 0.5rem;
+  border: none;
+  height: 1.8rem;
+  width: 1.8rem;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.15s ease-out;
+}
+
+.delete-file-dialog>.dialog-container>.dialog-content {
+  padding: 1rem;
+  padding-top: 1.125rem;
+}
+
+.delete-file-dialog>.dialog-container>.dialog-content .dialog-button-group {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-top: 1rem;
+}
+
+.delete-file-dialog>.dialog-container>.dialog-content .dialog-button-group>.secondary-button {
+  flex: 1;
+  text-align: center;
+  border: 1px solid #333A4A;
+  padding: 0.5rem 2rem;
+  border-radius: 0.25rem;
+  font-size: 1rem;
+  font-weight: 500;
+  background-color: #252933;
+  color: #f4f4f4;
+  transition: background-color 0.15s ease-out;
+}
+
+.delete-file-dialog>.dialog-container>.dialog-content .dialog-button-group>.secondary-button:hover {
+  background-color: #292f3d;
+}
+
+.delete-file-dialog>.dialog-container>.dialog-content .dialog-button-group>.primary-button {
+  flex: 1;
+  text-align: center;
+  border: 1px solid #4D3030;
+  padding: 0.5rem 2rem;
+  border-radius: 0.25rem;
+  font-size: 1rem;
+  font-weight: 500;
+  background-color: #DE3D3D;
+  color: #f4f4f4;
+  transition: background-color 0.15s ease-out;
+}
+
+.delete-file-dialog>.dialog-container>.dialog-content .dialog-button-group>.primary-button:hover {
+  background-color: #ef4b4b;
+}
+
+.delete-file-dialog>.dialog-container>.dialog-content>.file-info {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  background-color: #252933;
+  border: 1px solid #333A4A;
+  border-radius: 2rem;
+  padding: 0.75rem 1rem;
+  margin-bottom: 1rem;
+}
+
+.delete-file-dialog>.dialog-container>.dialog-content>.file-info>.file-name {
+  font-family: "Righteous";
+  font-size: 1.25rem;
+  color: #f4f4f4;
+}
+
+.delete-file-dialog>.dialog-container>.dialog-content>.file-info>img {
+  width: 1.5rem;
+}
+
+.delete-file-dialog>.dialog-container>.dialog-content>.action-info {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  padding: 0.75rem;
+  padding-bottom: 0.75rem;
+}
+
+.delete-file-dialog>.dialog-container>.dialog-content>.action-info>.prompt {
+  color: #b8b8b8;
+  font-size: 1.05rem;
+  font-weight: 500;
+}
+
+.delete-file-dialog>.dialog-container>.dialog-content>.action-info>.red-chip {
+  background-color: #4D3030;
+  border: 1px solid #4A3333;
+  color: #FF6666;
+  border-radius: 2rem;
+  padding: 0.125rem 0.5rem;
+  font-size: 0.9rem;
 }
