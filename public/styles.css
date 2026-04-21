@@ -592,7 +592,13 @@ input[type="password"] {
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 1.5rem;
+  margin-bottom: 1.25rem;
+  border-bottom: 1px solid #333A4A;
+  padding-left: 0.75rem;
+  padding-right: 0.75rem;
+  padding-bottom: 1rem;
+  border-bottom-left-radius: 0.5rem;
+  border-bottom-right-radius: 0.5rem;
 }
 
 .folders-section .section-title {
@@ -1120,6 +1126,10 @@ dialog:open::backdrop {
   font-family: "Righteous";
   font-size: 1.25rem;
   color: #f4f4f4;
+  max-width: 300px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .edit-folder-dialog>.dialog-container>.dialog-content>.folder-info>img {
@@ -1346,6 +1356,10 @@ dialog:open::backdrop {
   font-size: 1.375rem;
   color: #f4f4f4;
   margin-left: 1rem;
+  max-width: 300px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .files-section .new-button {
@@ -1726,6 +1740,10 @@ input[type="file"]::file-selector-button:hover {
   font-family: "Righteous";
   font-size: 1.25rem;
   color: #f4f4f4;
+  max-width: 300px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .edit-file-dialog>.dialog-container>.dialog-content>.file-info>img {

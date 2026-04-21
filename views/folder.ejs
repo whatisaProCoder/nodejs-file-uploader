@@ -130,7 +130,8 @@
           <form method="POST">
             <input type="hidden" name="folderID" value="<%= folder.id %>">
             <div class="input-container">
-              <input type="text" placeholder="Edit File Name" name="fileName" required id="edit-file-name-input-field">
+              <input type="text" placeholder="Edit File Name" name="fileName" required id="edit-file-name-input-field"
+                maxlength="100">
             </div>
             <div class="dialog-button-group">
               <input type="reset" value="Cancel" class="secondary-button">
