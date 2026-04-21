@@ -1,0 +1,16 @@
+-- CreateTable
+CREATE TABLE "FileShare" (
+    "id" TEXT NOT NULL,
+    "userID" INTEGER NOT NULL,
+    "fileID" INTEGER NOT NULL,
+    "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "expiresAt" TIMESTAMP(3) NOT NULL,
+
+    CONSTRAINT "FileShare_pkey" PRIMARY KEY ("id")
+);
+
+-- AddForeignKey
+ALTER TABLE "FileShare" ADD CONSTRAINT "FileShare_userID_fkey" FOREIGN KEY ("userID") REFERENCES "User"("id") ON DELETE CASCADE ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "FileShare" ADD CONSTRAINT "FileShare_fileID_fkey" FOREIGN KEY ("fileID") REFERENCES "File"("id") ON DELETE CASCADE ON UPDATE CASCADE;

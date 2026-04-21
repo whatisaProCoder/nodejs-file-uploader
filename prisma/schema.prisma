@@ -24,8 +24,10 @@ model User {
   firstName String @db.VarChar(100)
   lastName  String @db.VarChar(100)
 
-  folders Folder[]
-  files   File[]
+  folders      Folder[]
+  files        File[]
+  folderShares FolderShare[]
+  fileShares   FileShare[]
 }
 
 model Folder {
@@ -36,7 +38,8 @@ model Folder {
   author   User @relation(fields: [authorID], references: [id], onDelete: Cascade)
   authorID Int
 
-  files File[]
+  files        File[]
+  folderShares FolderShare[]
 }
 
 model File {
@@ -53,6 +56,35 @@ model File {
   user   User @relation(fields: [userID], references: [id], onDelete: Cascade)
   userID Int
 
+  folder     Folder      @relation(fields: [folderID], references: [id], onDelete: Cascade)
+  folderID   Int
+  fileShares FileShare[]
+}
+
+model FolderShare {
+  id String @id @default(uuid())
+
+  user   User @relation(fields: [userID], references: [id], onDelete: Cascade)
+  userID Int
+
   folder   Folder @relation(fields: [folderID], references: [id], onDelete: Cascade)
   folderID Int
+
+  createdAt DateTime @default(now())
+
+  expiresAt DateTime
+}
+
+model FileShare {
+  id String @id @default(uuid())
+
+  user   User @relation(fields: [userID], references: [id], onDelete: Cascade)
+  userID Int
+
+  file   File @relation(fields: [fileID], references: [id], onDelete: Cascade)
+  fileID Int
+
+  createdAt DateTime @default(now())
+
+  expiresAt DateTime
 }
