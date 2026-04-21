@@ -156,6 +156,42 @@
 
 
 
+    <dialog class="share-folder-dialog" closeby="any" open>
+      <div class="dialog-container">
+        <div class="dialog-header">
+          <div class="dialog-info">
+            <img src="/share-icon.svg" alt="Edit">
+            <div class="dialog-name">Share</div>
+          </div>
+          <button class="close-dialog-button">
+            <img src="/close-dialog-icon.svg" alt="Close">
+          </button>
+        </div>
+        <div class="dialog-content">
+          <div class="folder-info">
+            <img src="/folder-icon.svg" alt="Folder">
+            <div class="folder-name">Test123</div>
+          </div>
+
+          <form method="POST">
+            <div class="input-container">
+              <label for="duration" class="duration-label">Duration (in days)</label>
+              <input type="number" step="1" min="1" max="60" name="duration" value="1" name="folderName" required
+                id="share-folder-duration-input-field">
+            </div>
+            <div class="dialog-button-group">
+              <input type="reset" value="Cancel" class="secondary-button">
+              <input type="submit" value="Create Public Link" class="primary-button">
+            </div>
+          </form>
+
+        </div>
+      </div>
+      </div>
+    </dialog>
+
+
+
     <dialog class="delete-folder-dialog" closeby="any">
       <div class="dialog-container">
         <div class="dialog-header">
