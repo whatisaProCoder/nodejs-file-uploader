@@ -40,12 +40,12 @@
                       <% folder.files.forEach((file)=> { %>
 
                         <div class="file-card">
-                          <a class="icon" href="<%= file.url %>" target="_blank">
+                          <a class="icon" href="/file/<%=file.id%>/download">
                             <img src="/file-icon.svg" alt="File">
                           </a>
                           <div class="card-content">
                             <div class="top-row">
-                              <a class="file-name" href="<%= file.url %>" target="_blank">
+                              <a class="file-name" href="/file/<%=file.id%>/download">
                                 <%= file.name %>
                               </a>
                               <button class="file-menu-button" id="file-menu-<%= file.id %>"
@@ -53,7 +53,7 @@
                                 <img src="/menu-icon.svg" alt="File">
                               </button>
                             </div>
-                            <a class="additional-info" href="<%=file.url%>" target="_blank">
+                            <a class="additional-info" href="/file/<%=file.id%>/download">
                               <% if(file.size>1024*1024) { %><%= (file.size/(1024*1024)).toFixed(2) %>MB <% } else { %>
                                     <%= (file.size/(1024)).toFixed(2) %>KB <% } %> • <%= file.ext.toUpperCase() %> •
                                           <span id="date">

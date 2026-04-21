@@ -1,9 +1,12 @@
 import { RequestHandler } from "express";
 import { matchedData, validationResult } from "express-validator";
 import { v2 as cloudinary } from "cloudinary";
-import { unlink } from "fs/promises";
+import { unlink, mkdir } from "fs/promises";
 import prisma from "../lib/prisma";
 import FolderService from "../services/folder.service";
+import path from "path";
+import { get } from "https";
+import { createWriteStream } from "fs";
 
 const uploadFilePost: RequestHandler = async (req, res, next) => {
   const errors = validationResult(req);
@@ -25,6 +28,7 @@ const uploadFilePost: RequestHandler = async (req, res, next) => {
   try {
     const result = await cloudinary.uploader.upload(file.path, {
       folder: "nodejs-file-uploader",
+      type: "private",
     });
 
     const name =
@@ -40,6 +44,8 @@ const uploadFilePost: RequestHandler = async (req, res, next) => {
         userID,
         folderID,
         public_id: result.public_id,
+        resource_type: result.resource_type,
+        version: String(result.version),
       },
     });
   } catch (err: any) {
@@ -72,7 +78,7 @@ const editFileNamePost: RequestHandler = async (req, res, next) => {
         errors: errors.array(),
       });
     } else {
-      res.status(403).send("Folder Access Denied");
+      res.status(403).send("File Access Denied");
     }
 
     return;
@@ -109,9 +115,12 @@ const deleteFilePost: RequestHandler = async (req, res, next) => {
       },
     });
 
-    const result = await cloudinary.uploader.destroy(file.public_id);
-    if (result.result != "ok") {
-      new Error("Could not delete file from Cloudinary");
+    if (file) {
+      const result = await cloudinary.uploader.destroy(file.public_id);
+      if (result.result != "ok") {
+        new Error("Could not delete file from Cloudinary");
+      }
+    } else {
     }
   } catch (err) {
     return next(err);
@@ -120,10 +129,96 @@ const deleteFilePost: RequestHandler = async (req, res, next) => {
   res.redirect(`/folder/${folderID}`);
 };
 
+const downloadFileGet: RequestHandler = async (req, res, next) => {
+  const fileID = Number(req.params.id);
+
+  let localTempFilePath: string = "";
+
+  // file name + extension
+  let finalDownloadFileName: string = "";
+
+  try {
+    const requiredFileData = await prisma.file.findUnique({
+      where: { id: fileID, userID: res.locals.currentUser.id },
+    });
+
+    if (!requiredFileData) {
+      return res.status(403).send("File Access Denied");
+    }
+
+    const downloadURL = cloudinary.url(requiredFileData.public_id, {
+      resource_type: requiredFileData.resource_type,
+      version: requiredFileData.version,
+      flags: "attachment",
+      sign_url: true,
+      type: "private",
+    });
+
+    finalDownloadFileName = `${requiredFileData.name}.${requiredFileData.ext}`;
+
+    localTempFilePath = path.join(
+      process.cwd(),
+      "downloads",
+      finalDownloadFileName,
+    );
+
+    await mkdir(path.dirname(localTempFilePath), { recursive: true });
+
+    const request = get(downloadURL, (response) => {
+      response.on("error", async (err) => {
+        try {
+          await unlink(localTempFilePath);
+        } catch (errr) {}
+        next(err);
+      });
+
+      if (response.statusCode != 200) {
+        response.resume();
+        return next(
+          new Error(
+            "Failed to download File : Status Code => " + response.statusCode,
+          ),
+        );
+      }
+
+      const fileStream = createWriteStream(localTempFilePath);
+
+      response.pipe(fileStream);
+
+      fileStream.on("error", async (err) => {
+        try {
+          await unlink(localTempFilePath);
+        } catch (errr) {}
+        next(err);
+      });
+
+      fileStream.on("finish", () => {
+        res.download(localTempFilePath, finalDownloadFileName, async (err) => {
+          if (err) {
+            try {
+              await unlink(localTempFilePath);
+            } catch (errr) {}
+            next(err);
+          } else {
+            try {
+              await unlink(localTempFilePath);
+            } catch (errr) {}
+          }
+        });
+      });
+    });
+
+    request.on("error", (err) => next(err));
+  } catch (err) {
+    return next(err);
+  }
+};
+
 const FileController = {
   uploadFilePost,
   editFileNamePost,
   deleteFilePost,
+  downloadFileGet,
 };
 
 export default FileController;

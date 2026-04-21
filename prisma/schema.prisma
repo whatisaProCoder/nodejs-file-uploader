@@ -40,13 +40,15 @@ model Folder {
 }
 
 model File {
-  id        Int      @id @default(autoincrement())
-  name      String   @db.VarChar(100)
-  url       String   @db.VarChar(255)
-  createdAt DateTime @default(now())
-  size      Int
-  ext       String   @db.VarChar(50)
-  public_id String
+  id            Int      @id @default(autoincrement())
+  name          String   @db.VarChar(100)
+  url           String   @db.VarChar(255)
+  createdAt     DateTime @default(now())
+  size          Int
+  ext           String   @db.VarChar(50)
+  public_id     String
+  resource_type String
+  version       String
 
   user   User @relation(fields: [userID], references: [id], onDelete: Cascade)
   userID Int

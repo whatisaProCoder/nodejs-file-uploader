@@ -12,4 +12,6 @@ fileRouter.post(
 
 fileRouter.post("/:id/delete", FileController.deleteFilePost);
 
+fileRouter.get("/:id/download", FileController.downloadFileGet);
+
 export default fileRouter;
