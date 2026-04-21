@@ -1998,40 +1998,6 @@ input[type="file"]::file-selector-button:hover {
   margin-top: 1rem;
 }
 
-.share-folder-dialog>.dialog-container>.dialog-content .dialog-button-group>.secondary-button {
-  flex: 1;
-  text-align: center;
-  border: 1px solid #333A4A;
-  padding: 0.5rem 2rem;
-  border-radius: 0.25rem;
-  font-size: 1rem;
-  font-weight: 500;
-  background-color: #252933;
-  color: #f4f4f4;
-  transition: background-color 0.15s ease-out;
-}
-
-.share-folder-dialog>.dialog-container>.dialog-content .dialog-button-group>.secondary-button:hover {
-  background-color: #292f3d;
-}
-
-.share-folder-dialog>.dialog-container>.dialog-content .dialog-button-group>.primary-button {
-  flex: 1;
-  text-align: center;
-  border: 1px solid #3C92D8;
-  padding: 0.5rem 2rem;
-  border-radius: 0.25rem;
-  font-size: 1rem;
-  font-weight: 500;
-  background-color: #238BE1;
-  color: #f4f4f4;
-  transition: background-color 0.15s ease-out;
-}
-
-.share-folder-dialog>.dialog-container>.dialog-content .dialog-button-group>.primary-button:hover {
-  background-color: #399cee;
-}
-
 .share-folder-dialog>.dialog-container>.dialog-content>.folder-info {
   display: flex;
   flex-direction: row;
@@ -2063,4 +2029,75 @@ input[type="file"]::file-selector-button:hover {
   padding-left: 0.5rem;
   color: #f4f4f4;
   font-weight: 500;
+}
+
+
+.share-folder-dialog>.dialog-container>.dialog-content>.action-info {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  padding: 0.75rem;
+  padding-bottom: 0.75rem;
+}
+
+.share-folder-dialog>.dialog-container>.dialog-content>.action-info>.prompt {
+  color: #b8b8b8;
+  font-size: 1.05rem;
+  font-weight: 500;
+}
+
+.share-folder-dialog>.dialog-container>.dialog-content>.action-info>.red-chip {
+  background-color: #4D3030;
+  border: 1px solid #4A3333;
+  color: #FF6666;
+  border-radius: 2rem;
+  padding: 0.125rem 0.5rem;
+  font-size: 0.9rem;
+}
+
+.share-folder-dialog>.dialog-container>.dialog-content .dialog-button-group>.primary-button {
+  flex: 1;
+  text-align: center;
+  border: 1px solid #3C92D8;
+  padding: 0.5rem;
+  border-radius: 0.25rem;
+  font-size: 1rem;
+  padding-right: 1rem;
+  font-weight: 500;
+  background-color: #238BE1;
+  color: #f4f4f4;
+  transition: background-color 0.15s ease-out;
+
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+}
+
+.share-folder-dialog>.dialog-container>.dialog-content .dialog-button-group>.primary-button>img {
+  height: 1.25rem;
+}
+
+.share-folder-dialog>.dialog-container>.dialog-content .dialog-button-group>.primary-button:hover {
+  background-color: #399cee;
+}
+
+.share-folder-dialog>.dialog-container>.dialog-content .dialog-button-group>.secondary-button {
+  flex: 1;
+  text-align: center;
+  border: 1px solid #4D3030;
+  padding: 0.5rem;
+  border-radius: 0.25rem;
+  font-size: 1rem;
+  font-weight: 500;
+  background-color: #DE3D3D;
+  color: #f4f4f4;
+  transition: background-color 0.15s ease-out;
+}
+
+.share-folder-dialog>.dialog-container>.dialog-content .dialog-button-group>.secondary-button:hover {
+  background-color: #ef4b4b;
 }

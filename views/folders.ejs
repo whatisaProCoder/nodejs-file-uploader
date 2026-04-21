@@ -173,17 +173,28 @@
             <div class="folder-name">Test123</div>
           </div>
 
-          <form method="POST">
-            <div class="input-container">
-              <label for="duration" class="duration-label">Duration (in days)</label>
-              <input type="number" step="1" min="1" max="60" name="duration" value="1" name="folderName" required
-                id="share-folder-duration-input-field">
-            </div>
-            <div class="dialog-button-group">
-              <input type="reset" value="Cancel" class="secondary-button">
-              <input type="submit" value="Create Public Link" class="primary-button">
-            </div>
-          </form>
+          <% if(false) {%>
+            <form method="POST">
+              <div class="input-container">
+                <label for="duration" class="duration-label">Duration (in days)</label>
+                <input type="number" step="1" min="1" max="60" name="duration" value="1" name="folderName" required
+                  id="share-folder-duration-input-field">
+              </div>
+              <div class="dialog-button-group">
+                <input type="reset" value="Cancel" class="secondary-button">
+                <input type="submit" value="Create Public Link" class="primary-button">
+              </div>
+            </form>
+            <%} else {%>
+              <div class="action-info">
+                <div class="red-chip">Folder share-link is successfully created</div>
+                <div class="prompt">Link will expire in 3 days</div>
+              </div>
+              <div class="dialog-button-group">
+                <a href="" class="primary-button"><img src="/link-icon.svg">Copy Link</a>
+                <a href="" class="secondary-button">Delete Link</a>
+              </div>
+              <%}%>
 
         </div>
       </div>
