@@ -196,7 +196,7 @@ document?.querySelectorAll(".folder-menu-button")
           openDeleteFolderDialog(folderName, folderId);
         }, "/delete-icon.svg"),
       ],
-      height: "158px",
+      height: "160px",
       width: "140px",
     }).setEventListeners();
   });
@@ -389,7 +389,7 @@ document?.querySelectorAll(".file-menu-button")
           openDeleteFileDialog(fileName, fileId);
         }, "/delete-icon.svg"),
       ],
-      height: "158px",
+      height: "160px",
       width: "140px",
     }).setEventListeners();
   });
