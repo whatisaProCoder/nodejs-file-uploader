@@ -51,6 +51,8 @@ app.use("/folder", isAuth, folderRouter);
 
 app.use("/file", isAuth, fileRouter);
 
+// publicshare route
+
 app.get("/{*splat}", (_req, res) => {
   res.status(404).send("404");
 });

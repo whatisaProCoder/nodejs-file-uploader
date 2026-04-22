@@ -148,6 +148,25 @@ const shareFolderPost: RequestHandler = async (req, res, next) => {
   res.redirect("/folder/all");
 };
 
+const deleteShareFolderGet: RequestHandler = async (req, res, next) => {
+  const folderID = Number(req.params.id);
+
+  try {
+    await prisma.folderShare.delete({
+      where: {
+        folderID_userID: {
+          folderID: folderID,
+          userID: res.locals.currentUser.id,
+        },
+      },
+    });
+  } catch (err) {
+    next(err);
+  }
+
+  res.redirect("/folder/all");
+};
+
 const FolderController = {
   allFoldersPageGet,
   addFolderPost,
@@ -155,6 +174,7 @@ const FolderController = {
   deleteFolderPost,
   folderPageGet,
   shareFolderPost,
+  deleteShareFolderGet,
 };
 
 export default FolderController;

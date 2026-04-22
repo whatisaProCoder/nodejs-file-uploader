@@ -36,6 +36,8 @@ folderRouter.post(
   FolderController.shareFolderPost,
 );
 
+folderRouter.get("/:id/share/delete", FolderController.deleteShareFolderGet);
+
 folderRouter.get("/:id", FolderController.folderPageGet);
 
 export default folderRouter;

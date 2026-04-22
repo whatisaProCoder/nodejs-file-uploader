@@ -250,15 +250,20 @@ function openShareFolderDialog(selectedFolderName, selectedFileID, folderShareId
 
   const otherElements = document.querySelectorAll(".share-folder-dialog .other-elements");
 
-  const copyLinkButton = document.querySelectorAll(".share-folder-dialog .other-elements .primary-button");
-  const deleteLinkButton = document.querySelectorAll(".share-folder-dialog .other-elements .secondary-button");
+  const copyLinkButton = document.querySelector(".share-folder-dialog .other-elements .primary-button");
+  const deleteLinkButton = document.querySelector(".share-folder-dialog .other-elements .secondary-button");
 
   const expiry = document.querySelector(".share-folder-dialog .expiry");
 
   if (folderShareId && folderShareExpiresAt) {
     formElement.classList.add("hidden");
     otherElements.forEach(ele => ele.classList.remove("hidden"));
-    copyLinkButton.href = `/publicsharing/folder/${folderShareId}`;
+
+    copyLinkButton.addEventListener("click", () => {
+      navigator.clipboard.writeText(window.location.hostname + `/publicsharing/folder/${folderShareId}`)
+      alert("Folder share link copied to clipboard");
+    });
+
     deleteLinkButton.href = `/folder/${selectedFileID}/share/delete`;
 
     const daysLeft = Math.round((new Date(folderShareExpiresAt) - Date.now()) / (1000 * 60 * 60 * 24));
