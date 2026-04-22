@@ -214,11 +214,71 @@ const downloadFileGet: RequestHandler = async (req, res, next) => {
   }
 };
 
+const shareFilePost: RequestHandler = async (req, res, next) => {
+  const fileID = Number(req.params.id);
+  const folderID = Number(req.body.folderID);
+
+  const errors = validationResult(req);
+
+  if (!errors.isEmpty()) {
+    const folder = await FolderService.getUserFolder(
+      res.locals.currentUser.id,
+      folderID,
+    );
+
+    return res.status(400).render("folder", {
+      folder,
+      errors: errors.array(),
+    });
+  }
+
+  const { duration } = matchedData(req);
+
+  const expiryDate = new Date();
+  expiryDate.setDate(expiryDate.getDate() + Number(duration));
+
+  try {
+    await prisma.fileShare.create({
+      data: {
+        userID: res.locals.currentUser.id,
+        fileID: fileID,
+        expiresAt: expiryDate,
+      },
+    });
+  } catch (err) {
+    next(err);
+  }
+
+  res.redirect(`/folder/${folderID}`);
+};
+
+const deleteShareFileGet: RequestHandler = async (req, res, next) => {
+  const fileID = Number(req.params.id);
+  const folderID = Number(req.query.folderID);
+
+  try {
+    await prisma.fileShare.delete({
+      where: {
+        fileID_userID: {
+          fileID: fileID,
+          userID: res.locals.currentUser.id,
+        },
+      },
+    });
+  } catch (err) {
+    next(err);
+  }
+
+  res.redirect(`/folder/${folderID}`);
+};
+
 const FileController = {
   uploadFilePost,
   editFileNamePost,
   deleteFilePost,
   downloadFileGet,
+  shareFilePost,
+  deleteShareFileGet,
 };
 
 export default FileController;

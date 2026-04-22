@@ -28,6 +28,14 @@ const fileEditRules = [
     .withMessage("Folder ID must be numeric"),
 ];
 
-const fileValidator = { fileUploadRules, fileEditRules };
+const fileShareRules = [
+  body("duration")
+    .notEmpty()
+    .withMessage("Duration" + cannotBeEmpty)
+    .isInt({ min: 1, max: 60 })
+    .withMessage("Duration must be integer (days)"),
+];
+
+const fileValidator = { fileUploadRules, fileEditRules, fileShareRules };
 
 export default fileValidator;

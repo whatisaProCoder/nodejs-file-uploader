@@ -101,6 +101,8 @@ const folderPageGet: RequestHandler = async (req, res) => {
     folderID,
   );
 
+  console.log(folder);
+
   if (folder) res.render("folder", { folder: folder });
   else {
     res.status(403).send("Folder Access Denied");

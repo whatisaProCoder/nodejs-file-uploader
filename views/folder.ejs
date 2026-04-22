@@ -49,7 +49,9 @@
                                 <%= file.name %>
                               </a>
                               <button class="file-menu-button" id="file-menu-<%= file.id %>"
-                                data-file-id="<%= file.id %>" data-file-name="<%= file.name %>">
+                                data-file-id="<%= file.id %>" data-file-name="<%= file.name %>"
+                                data-file-share-id="<%= file.fileShares?.[0]?.id %>"
+                                data-file-share-expires-at="<%= file.fileShares?.[0]?.expiresAt %>">
                                 <img src="/menu-icon.svg" alt="File">
                               </button>
                             </div>
@@ -144,7 +146,7 @@
       </div>
     </dialog>
 
-    <dialog class="share-folder-dialog" closeby="any">
+    <dialog class="share-file-dialog" closeby="any">
       <div class="dialog-container">
         <div class="dialog-header">
           <div class="dialog-info">
@@ -156,9 +158,9 @@
           </button>
         </div>
         <div class="dialog-content">
-          <div class="folder-info">
-            <img src="/folder-icon.svg" alt="Folder">
-            <div class="folder-name">Test123</div>
+          <div class="file-info">
+            <img src="/file-icon.svg" alt="file">
+            <div class="file-name">Test123</div>
           </div>
 
 
@@ -166,20 +168,24 @@
             <div class="input-container">
               <label for="duration" class="duration-label">Duration (in days)</label>
               <input type="number" step="1" min="1" max="60" name="duration" value="1" name="folderName" required
-                id="share-folder-duration-input-field">
+                id="share-file-duration-input-field">
             </div>
             <div class="dialog-button-group">
               <input type="reset" value="Cancel" class="secondary-button">
               <input type="submit" value="Create Public Link" class="primary-button">
             </div>
+            <input type="hidden" name="folderID" value="<%= folder.id %>">
           </form>
           <div class="action-info other-elements">
-            <div class="red-chip">Folder share-link is successfully created</div>
+            <div class="red-chip">File share-link is successfully created</div>
             <div class="prompt">Link will expire in <span class="expiry"></span></div>
           </div>
           <div class="dialog-button-group other-elements">
             <button class="primary-button"><img src="/link-icon.svg">Copy Link</button>
-            <a class="secondary-button">Delete Link</a>
+            <form method="GET" id="delete-form">
+              <input type="submit" class="secondary-button" value="Delete Link" class="secondary-button">
+              <input type="hidden" name="folderID" value="<%= folder.id %>">
+            </form>
           </div>
 
         </div>

@@ -14,4 +14,12 @@ fileRouter.post("/:id/delete", FileController.deleteFilePost);
 
 fileRouter.get("/:id/download", FileController.downloadFileGet);
 
+fileRouter.post(
+  "/:id/share",
+  fileValidator.fileShareRules,
+  FileController.shareFilePost,
+);
+
+fileRouter.get("/:id/share/delete", FileController.deleteShareFileGet);
+
 export default fileRouter;

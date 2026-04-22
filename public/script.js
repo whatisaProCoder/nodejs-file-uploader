@@ -235,10 +235,10 @@ closeEditFolderDialogButton?.addEventListener("click", () => {
 
 const shareFolderDialog = document.querySelector(".share-folder-dialog");
 
-function openShareFolderDialog(selectedFolderName, selectedFileID, folderShareId, folderShareExpiresAt) {
+function openShareFolderDialog(selectedFolderName, selectedFolderID, folderShareId, folderShareExpiresAt) {
   const formElement = document.querySelector(".share-folder-dialog form");
 
-  formElement.action = `/folder/${selectedFileID}/share`;
+  formElement.action = `/folder/${selectedFolderID}/share`;
 
   const folderNameElement = document.querySelector(".share-folder-dialog .folder-name");
 
@@ -373,12 +373,14 @@ document?.querySelectorAll(".file-menu-button")
   .forEach(button => {
     const fileId = button.dataset.fileId;
     const fileName = button.dataset.fileName;
+    const fileShareId = button.dataset.fileShareId;
+    const fileShareExpiresAt = button.dataset.fileShareExpiresAt;
 
     new CustomDropDownMenu({
       triggerElementID: `file-menu-${fileId}`,
       actionItemArray: [
         new ActionItem("Share", () => {
-          console.log(`/file/${fileId}/share`);
+          openShareFileDialog(fileName, fileId, fileShareId, fileShareExpiresAt);
         }, "/share-icon.svg"),
         new ActionItem("Edit", () => {
           openEditFileDialog(fileName, fileId);
@@ -431,9 +433,9 @@ function openDeleteFileDialog(selectedFileName, selectedFileID) {
 
   formElement.action = `/file/${selectedFileID}/delete`;
 
-  const folderNameElement = document.querySelector(".delete-file-dialog .file-name");
+  const fileNameElement = document.querySelector(".delete-file-dialog .file-name");
 
-  folderNameElement.textContent = selectedFileName;
+  fileNameElement.textContent = selectedFileName;
 
   deleteFileDialog.showModal();
 }
@@ -443,3 +445,62 @@ const closeDeleteFileDialogButton = document.querySelector(".delete-file-dialog 
 closeDeleteFileDialogButton?.addEventListener("click", () => {
   deleteFileDialog.close();
 });
+
+
+// share file dialog
+
+const shareFileDialog = document.querySelector(".share-file-dialog");
+
+function openShareFileDialog(selectedFileName, selectedFileID, fileShareId, fileShareExpiresAt) {
+  const formElement = document.querySelector(".share-file-dialog form");
+
+  formElement.action = `/file/${selectedFileID}/share`;
+
+  const fileNameElement = document.querySelector(".share-file-dialog .file-name");
+
+  fileNameElement.textContent = selectedFileName;
+
+  const inputField = document.querySelector("#share-file-duration-input-field");
+
+  inputField.textContent = "";
+
+  const otherElements = document.querySelectorAll(".share-file-dialog .other-elements");
+
+  const copyLinkButton = document.querySelector(".share-file-dialog .other-elements .primary-button");
+  const deleteLinkForm = document.querySelector(".share-file-dialog #delete-form");
+
+  const expiry = document.querySelector(".share-file-dialog .expiry");
+
+  if (fileShareId && fileShareExpiresAt) {
+    formElement.classList.add("hidden");
+    otherElements.forEach(ele => ele.classList.remove("hidden"));
+
+    copyLinkButton.addEventListener("click", () => {
+      navigator.clipboard.writeText(window.location.hostname + `/publicsharing/file/${fileShareId}`)
+      alert("File share link copied to clipboard");
+    });
+
+    deleteLinkForm.action = `/file/${selectedFileID}/share/delete`;
+
+    const daysLeft = Math.round((new Date(fileShareExpiresAt) - Date.now()) / (1000 * 60 * 60 * 24));
+    if (daysLeft == 1)
+      expiry.textContent = `1 day`;
+    else
+      expiry.textContent = `${daysLeft} days`
+  } else {
+    formElement.classList.remove("hidden");
+    otherElements.forEach(ele => ele.classList.add("hidden"));
+  }
+
+  shareFileDialog.showModal();
+}
+
+const closeShareFileDialogButton = document.querySelector(".share-file-dialog .close-dialog-button");
+
+closeShareFileDialogButton?.addEventListener("click", () => {
+  shareFileDialog.close();
+
+  const inputField = document.querySelector("#share-file-duration-input-field");
+
+  inputField.value = "";
+})
