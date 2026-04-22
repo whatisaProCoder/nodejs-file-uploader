@@ -4,6 +4,8 @@ A full-stack file management web app built as the **File Uploader Assignment fro
 
 This is my most complex project yet: from concept and UI design to backend architecture, database modeling, authentication/authorization, cloud file integration, and public sharing workflows.
 
+![ShareFY Dashboard](public/dashboard.png)
+
 ## Authorship Note
 
 I made this project **95% without using AI**.
