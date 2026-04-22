@@ -246,7 +246,7 @@ function openShareFolderDialog(selectedFolderName, selectedFolderID, folderShare
 
   const inputField = document.querySelector("#share-folder-duration-input-field");
 
-  inputField.textContent = "";
+  inputField.textContent = "1";
 
   const otherElements = document.querySelectorAll(".share-folder-dialog .other-elements");
 
@@ -286,7 +286,7 @@ closeShareFolderDialogButton?.addEventListener("click", () => {
 
   const inputField = document.querySelector("#share-folder-duration-input-field");
 
-  inputField.value = "";
+  inputField.value = "1";
 })
 
 // delete form
@@ -446,6 +446,11 @@ closeDeleteFileDialogButton?.addEventListener("click", () => {
   deleteFileDialog.close();
 });
 
+const deleteFileDialogCancelButton = document.querySelector("#delete-file-dialog-cancel-button");
+
+deleteFileDialogCancelButton?.addEventListener("click", () => {
+  deleteFileDialog.close();
+});
 
 // share file dialog
 
@@ -462,7 +467,7 @@ function openShareFileDialog(selectedFileName, selectedFileID, fileShareId, file
 
   const inputField = document.querySelector("#share-file-duration-input-field");
 
-  inputField.textContent = "";
+  inputField.textContent = "1";
 
   const otherElements = document.querySelectorAll(".share-file-dialog .other-elements");
 
@@ -502,5 +507,5 @@ closeShareFileDialogButton?.addEventListener("click", () => {
 
   const inputField = document.querySelector("#share-file-duration-input-field");
 
-  inputField.value = "";
+  inputField.value = "1";
 })
