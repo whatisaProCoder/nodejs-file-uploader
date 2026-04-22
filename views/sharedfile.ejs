@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ShareFY</title>
+  <link rel="stylesheet" href="/styles.css">
+  <link rel="shortcut icon" href="/brand-icon.svg" type="image/x-icon">
+</head>
+
+<body>
+  <%- include("./partials/header") %>
+    <div class="content-container">
+      <div class="content">
+        <div class="centered">
+          <div class="user-info">
+            <img src="/shared-icon.svg" alt="Shared">
+            File Shared by <%=fileShareObject.user.firstName%>
+              <%=fileShareObject.user.lastName%>
+          </div>
+
+
+          <div class="file-card">
+            <a class="icon" href="/publicshare/file/<%=fileShareObject.id%>/download">
+              <img src="/file-icon.svg" alt="File">
+            </a>
+            <div class="card-content">
+              <div class="top-row">
+                <div class="file-name">
+                  <%=fileShareObject.file.name %>
+                </div>
+              </div>
+              <div class="additional-info">
+                <% if(fileShareObject.file.size>1024*1024) { %><%= (fileShareObject.file.size/(1024*1024)).toFixed(2) %>
+                    MB
+                    <% } else { %>
+                      <%= (fileShareObject.file.size/(1024)).toFixed(2) %>KB <% } %> • <%=
+                            fileShareObject.file.ext.toUpperCase() %> •
+                            <span id="date">
+                              <%= fileShareObject.file.createdAt %>
+                            </span>
+              </div>
+            </div>
+            <a href="/publicshare/file/<%=fileShareObject.id%>/download" class="additional"><img
+                src="/download-icon.svg" alt="Download"></a>
+          </div>
+
+        </div>
+      </div>
+    </div>
+</body>
+<script src="/script.js"></script>
+
+</html>

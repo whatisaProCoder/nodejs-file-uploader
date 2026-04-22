@@ -19,27 +19,29 @@
             <div class="left-group">
               <img src="/folder-icon.svg" alt="Folder" class="folder-icon">
               <div class="section-title">
-                <%= folder.name %>
+                <%= folderShareObject.folder.name %>
               </div>
             </div>
           </div>
 
-          <% if(locals.folder.files) { %>
-            <% if(folder.files.length!=0) { %>
+          <% if(locals.folderShareObject.folder.files) { %>
+            <% if(folderShareObject.folder.files.length!=0) { %>
               <div class="files-grid">
-                <% folder.files.forEach((file)=> { %>
+                <% folderShareObject.folder.files.forEach((file)=> { %>
 
                   <div class="file-card">
-                    <a class="icon" href="/file/<%=file.id%>/download">
+                    <a class="icon" href="/publicshare/folder/<%=folderShareObject.id%>/file/<%=file.id%>/download">
                       <img src="/file-icon.svg" alt="File">
                     </a>
                     <div class="card-content">
                       <div class="top-row">
-                        <a class="file-name" href="/file/<%=file.id%>/download">
+                        <a class="file-name"
+                          href="/publicshare/folder/<%=folderShareObject.id%>/file/<%=file.id%>/download">
                           <%= file.name %>
                         </a>
                       </div>
-                      <a class="additional-info" href="/file/<%=file.id%>/download">
+                      <a class="additional-info"
+                        href="/publicshare/folder/<%=folderShareObject.id%>/file/<%=file.id%>/download">
                         <% if(file.size>1024*1024) { %><%= (file.size/(1024*1024)).toFixed(2) %>MB <% } else { %>
                               <%= (file.size/(1024)).toFixed(2) %>KB <% } %> • <%= file.ext.toUpperCase() %> •
                                     <span id="date">
@@ -59,6 +61,15 @@
                   <div class="line-1"></div>No files yet!<div class="line-2"></div>
                 </div>
                 <% }} %>
+        </div>
+
+
+        <div class="centered-container">
+          <div class="user-info">
+            <img src="/shared-icon.svg" alt="Shared">
+            Folder Shared by <%=folderShareObject.user.firstName%>
+              <%=folderShareObject.user.lastName%>
+          </div>
         </div>
       </div>
     </div>

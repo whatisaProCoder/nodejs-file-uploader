@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ShareFY</title>
+  <link rel="stylesheet" href="/styles.css">
+  <link rel="shortcut icon" href="/brand-icon.svg" type="image/x-icon">
+</head>
+
+<body>
+  <%- include("./partials/header") %>
+    <div class="content-container">
+      <div class="content">
+        <div class="centered">
+          <div class="user-info">
+            <img src="/alert-icon.svg" alt="Alert">
+            <%=prompt%>
+          </div>
+          <%if(locals.currentUser) {%>
+            <a href="/folder/all">
+              Go Back To Dashboard
+            </a>
+            <% } %>
+        </div>
+
+      </div>
+    </div>
+</body>
+<script src="/script.js"></script>
+
+</html>

@@ -260,11 +260,11 @@ function openShareFolderDialog(selectedFolderName, selectedFolderID, folderShare
     otherElements.forEach(ele => ele.classList.remove("hidden"));
 
     copyLinkButton.addEventListener("click", () => {
-      navigator.clipboard.writeText(window.location.hostname + `/publicsharing/folder/${folderShareId}`)
+      navigator.clipboard.writeText(window.location.hostname + `/publicshare/folder/${folderShareId}`)
       alert("Folder share link copied to clipboard");
     });
 
-    deleteLinkButton.href = `/folder/${selectedFileID}/share/delete`;
+    deleteLinkButton.href = `/folder/${selectedFolderID}/share/delete`;
 
     const daysLeft = Math.round((new Date(folderShareExpiresAt) - Date.now()) / (1000 * 60 * 60 * 24));
     if (daysLeft == 1)
@@ -356,8 +356,8 @@ fileField?.addEventListener("change", (event) => {
 
   if (!file) return;
 
-  if (file.size > 15 * 1024 * 1024) {
-    alert("File must be under 15 MB");
+  if (file.size > 10 * 1024 * 1024) {
+    alert("File must be under 10 MB");
     fileField.value = "";
   }
 
@@ -481,7 +481,7 @@ function openShareFileDialog(selectedFileName, selectedFileID, fileShareId, file
     otherElements.forEach(ele => ele.classList.remove("hidden"));
 
     copyLinkButton.addEventListener("click", () => {
-      navigator.clipboard.writeText(window.location.hostname + `/publicsharing/file/${fileShareId}`)
+      navigator.clipboard.writeText(window.location.hostname + `/publicshare/file/${fileShareId}`)
       alert("File share link copied to clipboard");
     });
 

@@ -12,7 +12,9 @@ const uploadFilePost: RequestHandler = async (req, res, next) => {
   const errors = validationResult(req);
 
   if (!errors.isEmpty() || !req.file) {
-    return res.status(400).send("Invalid File Payload");
+    return res
+      .status(400)
+      .render("errorpage", { prompt: "Invalid File Payload" });
   }
 
   const userID = Number(res.locals.currentUser.id);
@@ -22,10 +24,26 @@ const uploadFilePost: RequestHandler = async (req, res, next) => {
 
   const file = req.file;
   if (!file) {
-    return res.status(400).send("No file uploaded");
+    return res.status(400).render("errorpage", { prompt: "No file uploaded" });
   }
 
   try {
+    const totalFileSize = await prisma.file.aggregate({
+      where: { userID: res.locals.currentUser.id },
+      _sum: {
+        size: true,
+      },
+    });
+
+    if (
+      Number(totalFileSize._sum.size) + Number(file.size) >
+      50 * 1024 * 1024 // 50MB
+    ) {
+      return res.status(403).render("errorpage", {
+        prompt: "Storage Limit Reached for this Account",
+      });
+    }
+
     const result = await cloudinary.uploader.upload(file.path, {
       folder: "nodejs-file-uploader",
       type: "private",
@@ -78,7 +96,7 @@ const editFileNamePost: RequestHandler = async (req, res, next) => {
         errors: errors.array(),
       });
     } else {
-      res.status(403).send("File Access Denied");
+      res.status(403).render("errorpage", { prompt: "File Access Denied" });
     }
 
     return;
@@ -143,7 +161,9 @@ const downloadFileGet: RequestHandler = async (req, res, next) => {
     });
 
     if (!requiredFileData) {
-      return res.status(403).send("File Access Denied");
+      return res
+        .status(403)
+        .render("errorpage", { prompt: "File Access Denied" });
     }
 
     const downloadURL = cloudinary.url(requiredFileData.public_id, {

@@ -3,7 +3,7 @@ import { matchedData, validationResult } from "express-validator";
 import prisma from "../lib/prisma";
 import FolderService from "../services/folder.service";
 
-const allFoldersPageGet: RequestHandler = async (_req, res) => {
+const allFoldersPageGet: RequestHandler = async (req, res) => {
   const allFolders = await FolderService.getUserFolders(
     res.locals.currentUser.id,
   );
@@ -103,7 +103,7 @@ const folderPageGet: RequestHandler = async (req, res) => {
 
   if (folder) res.render("folder", { folder: folder });
   else {
-    res.status(403).send("Folder Access Denied");
+    res.status(403).render("errorpage", { prompt: "Folder Access Denied" });
   }
 };
 
@@ -145,7 +145,7 @@ const shareFolderPost: RequestHandler = async (req, res, next) => {
     next(err);
   }
 
-  res.redirect("/folder/all");
+  res.redirect("/folder/all?share=true");
 };
 
 const deleteShareFolderGet: RequestHandler = async (req, res, next) => {

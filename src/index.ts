@@ -13,6 +13,8 @@ import authRouter from "./routes/auth.router";
 import { isAuth } from "./middleware/auth.middleware";
 import folderRouter from "./routes/folder.router";
 import fileRouter from "./routes/file.router";
+import publicShareRouter from "./routes/publicshare.router";
+import nodeCron from "node-cron";
 
 const app: Express = express();
 
@@ -51,19 +53,15 @@ app.use("/folder", isAuth, folderRouter);
 
 app.use("/file", isAuth, fileRouter);
 
-// publicshare route
+app.use("/publicshare", publicShareRouter);
 
 app.get("/{*splat}", (_req, res) => {
-  res.status(404).send("404");
+  res.status(404).render("errorpage", { prompt: "404 | Page Not Found" });
 });
 
 app.use(errorMiddleware);
 
 const PORT: string = process.env.PORT || "3500";
-
-app.get("/", (_req, res) => {
-  res.send("Hello World");
-});
 
 app.listen(PORT, (error) => {
   if (error) {
@@ -72,3 +70,22 @@ app.listen(PORT, (error) => {
 
   console.log(`✅ Server running at port : ${PORT}`);
 });
+
+nodeCron.schedule(
+  "0 0 0 * * *",
+  async () => {
+    const now = new Date();
+    await prisma.folderShare.deleteMany({
+      where: {
+        expiresAt: { lt: now },
+      },
+    });
+
+    await prisma.fileShare.deleteMany({
+      where: {
+        expiresAt: { lt: now },
+      },
+    });
+  },
+  { timezone: "UTC" }, // db saves expiry date in UTC format
+);
