@@ -9,3 +9,5 @@ package-lock.json
 uploads/
 
 downloads/
+
+dist/
