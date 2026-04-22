@@ -3,7 +3,7 @@ import { matchedData, validationResult } from "express-validator";
 import prisma from "../lib/prisma";
 import FolderService from "../services/folder.service";
 
-const allFoldersPageGet: RequestHandler = async (req, res) => {
+const allFoldersPageGet: RequestHandler = async (_nextreq, res) => {
   const allFolders = await FolderService.getUserFolders(
     res.locals.currentUser.id,
   );
