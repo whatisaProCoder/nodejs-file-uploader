@@ -13,6 +13,14 @@ const folderNameRules = [
     .withMessage("Folder name " + maxChars(100)),
 ];
 
-const folderValidator = { folderNameRules };
+const folderShareRules = [
+  body("duration")
+    .notEmpty()
+    .withMessage("Duration" + cannotBeEmpty)
+    .isInt({ min: 1, max: 60 })
+    .withMessage("Duration must be integer (days)"),
+];
+
+const folderValidator = { folderNameRules, folderShareRules };
 
 export default folderValidator;

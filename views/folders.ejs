@@ -37,7 +37,8 @@
             <div class="metric">
               <div class="metrics-title">Storage Used</div>
               <div class="value">
-                <%= (userMetrics.fileSizesSum._sum.size/userMetrics.totalSize).toFixed(2) %><span class="unit">%</span>
+                <%= (userMetrics.fileSizesSum._sum.size/userMetrics.totalSize*100).toFixed(2) %><span
+                    class="unit">%</span>
               </div>
             </div>
             <div class="line"></div>
@@ -76,7 +77,9 @@
                                 <%= folder.name %>
                               </a>
                               <button class="folder-menu-button" id="folder-menu-<%= folder.id %>"
-                                data-folder-id="<%= folder.id %>" data-folder-name="<%= folder.name %>">
+                                data-folder-id="<%= folder.id %>" data-folder-name="<%= folder.name %>"
+                                data-folder-share-id="<%= folder.folderShares?.[0]?.id %>"
+                                data-folder-share-expires-at="<%= folder.folderShares?.[0]?.expiresAt %>">
                                 <img src="/menu-icon.svg" alt="Folder">
                               </button>
                             </div>
@@ -169,7 +172,7 @@
 
 
 
-    <dialog class="share-folder-dialog" closeby="any" open>
+    <dialog class="share-folder-dialog" closeby="any">
       <div class="dialog-container">
         <div class="dialog-header">
           <div class="dialog-info">
@@ -186,28 +189,26 @@
             <div class="folder-name">Test123</div>
           </div>
 
-          <% if(true) {%>
-            <form method="POST">
-              <div class="input-container">
-                <label for="duration" class="duration-label">Duration (in days)</label>
-                <input type="number" step="1" min="1" max="60" name="duration" value="1" name="folderName" required
-                  id="share-folder-duration-input-field">
-              </div>
-              <div class="dialog-button-group">
-                <input type="reset" value="Cancel" class="secondary-button">
-                <input type="submit" value="Create Public Link" class="primary-button">
-              </div>
-            </form>
-            <%} else {%>
-              <div class="action-info">
-                <div class="red-chip">Folder share-link is successfully created</div>
-                <div class="prompt">Link will expire in 3 days</div>
-              </div>
-              <div class="dialog-button-group">
-                <a href="" class="primary-button"><img src="/link-icon.svg">Copy Link</a>
-                <a href="" class="secondary-button">Delete Link</a>
-              </div>
-              <%}%>
+
+          <form method="POST">
+            <div class="input-container">
+              <label for="duration" class="duration-label">Duration (in days)</label>
+              <input type="number" step="1" min="1" max="60" name="duration" value="1" name="folderName" required
+                id="share-folder-duration-input-field">
+            </div>
+            <div class="dialog-button-group">
+              <input type="reset" value="Cancel" class="secondary-button">
+              <input type="submit" value="Create Public Link" class="primary-button">
+            </div>
+          </form>
+          <div class="action-info other-elements">
+            <div class="red-chip">Folder share-link is successfully created</div>
+            <div class="prompt">Link will expire in <span class="expiry"></span></div>
+          </div>
+          <div class="dialog-button-group other-elements">
+            <a class="primary-button"><img src="/link-icon.svg">Copy Link</a>
+            <a class="secondary-button">Delete Link</a>
+          </div>
 
         </div>
       </div>

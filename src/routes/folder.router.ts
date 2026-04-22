@@ -30,6 +30,12 @@ folderRouter.post(
   FileController.uploadFilePost,
 );
 
+folderRouter.post(
+  "/:id/share",
+  folderValidator.folderShareRules,
+  FolderController.shareFolderPost,
+);
+
 folderRouter.get("/:id", FolderController.folderPageGet);
 
 export default folderRouter;

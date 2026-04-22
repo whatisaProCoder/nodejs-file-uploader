@@ -2065,17 +2065,10 @@ input[type="file"]::file-selector-button:hover {
   padding: 0.5rem;
   border-radius: 0.25rem;
   font-size: 1rem;
-  padding-right: 1rem;
   font-weight: 500;
   background-color: #238BE1;
   color: #f4f4f4;
   transition: background-color 0.15s ease-out;
-
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: center;
-  gap: 0.5rem;
 }
 
 .share-folder-dialog>.dialog-container>.dialog-content .dialog-button-group>.primary-button>img {
@@ -2101,4 +2094,33 @@ input[type="file"]::file-selector-button:hover {
 
 .share-folder-dialog>.dialog-container>.dialog-content .dialog-button-group>.secondary-button:hover {
   background-color: #ef4b4b;
+}
+
+.share-folder-dialog .other-elements .primary-button {
+  flex: 1;
+  text-align: center;
+  border: 1px solid #3C92D8;
+  padding: 0.5rem;
+  border-radius: 0.25rem;
+  font-size: 1rem;
+  font-weight: 500;
+  background-color: #238BE1;
+  color: #f4f4f4;
+  transition: background-color 0.15s ease-out;
+
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+
+  padding-right: 1.5rem;
+}
+
+.share-folder-dialog .other-elements .primary-button:hover {
+  background-color: #399cee;
+}
+
+.hidden {
+  display: none !important;
 }

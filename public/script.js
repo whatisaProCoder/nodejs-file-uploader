@@ -180,12 +180,14 @@ document?.querySelectorAll(".folder-menu-button")
   .forEach(button => {
     const folderId = button.dataset.folderId;
     const folderName = button.dataset.folderName;
+    const folderShareId = button.dataset.folderShareId;
+    const folderShareExpiresAt = button.dataset.folderShareExpiresAt;
 
     new CustomDropDownMenu({
       triggerElementID: `folder-menu-${folderId}`,
       actionItemArray: [
         new ActionItem("Share", () => {
-          console.log(`/folder/${folderId}/share`);
+          openShareFolderDialog(folderName, folderId, folderShareId, folderShareExpiresAt);
         }, "/share-icon.svg"),
         new ActionItem("Edit", () => {
           openEditFolderDialog(folderName, folderId);
@@ -225,6 +227,59 @@ closeEditFolderDialogButton?.addEventListener("click", () => {
   editFolderDialog.close();
 
   const inputField = document.querySelector("#edit-folder-name-input-field");
+
+  inputField.value = "";
+})
+
+// share form
+
+const shareFolderDialog = document.querySelector(".share-folder-dialog");
+
+function openShareFolderDialog(selectedFolderName, selectedFileID, folderShareId, folderShareExpiresAt) {
+  const formElement = document.querySelector(".share-folder-dialog form");
+
+  formElement.action = `/folder/${selectedFileID}/share`;
+
+  const folderNameElement = document.querySelector(".share-folder-dialog .folder-name");
+
+  folderNameElement.textContent = selectedFolderName;
+
+  const inputField = document.querySelector("#share-folder-duration-input-field");
+
+  inputField.textContent = "";
+
+  const otherElements = document.querySelectorAll(".share-folder-dialog .other-elements");
+
+  const copyLinkButton = document.querySelectorAll(".share-folder-dialog .other-elements .primary-button");
+  const deleteLinkButton = document.querySelectorAll(".share-folder-dialog .other-elements .secondary-button");
+
+  const expiry = document.querySelector(".share-folder-dialog .expiry");
+
+  if (folderShareId && folderShareExpiresAt) {
+    formElement.classList.add("hidden");
+    otherElements.forEach(ele => ele.classList.remove("hidden"));
+    copyLinkButton.href = `/publicsharing/folder/${folderShareId}`;
+    deleteLinkButton.href = `/folder/${selectedFileID}/share/delete`;
+
+    const daysLeft = Math.round((new Date(folderShareExpiresAt) - Date.now()) / (1000 * 60 * 60 * 24));
+    if (daysLeft == 1)
+      expiry.textContent = `1 day`;
+    else
+      expiry.textContent = `${daysLeft} days`
+  } else {
+    formElement.classList.remove("hidden");
+    otherElements.forEach(ele => ele.classList.add("hidden"));
+  }
+
+  shareFolderDialog.showModal();
+}
+
+const closeShareFolderDialogButton = document.querySelector(".share-folder-dialog .close-dialog-button");
+
+closeShareFolderDialogButton?.addEventListener("click", () => {
+  shareFolderDialog.close();
+
+  const inputField = document.querySelector("#share-folder-duration-input-field");
 
   inputField.value = "";
 })

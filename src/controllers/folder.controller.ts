@@ -12,8 +12,6 @@ const allFoldersPageGet: RequestHandler = async (_req, res) => {
     res.locals.currentUser.id,
   );
 
-  console.log(userMetrics);
-
   res.render("folders", {
     allFolders,
     userMetrics,
@@ -109,12 +107,54 @@ const folderPageGet: RequestHandler = async (req, res) => {
   }
 };
 
+const shareFolderPost: RequestHandler = async (req, res, next) => {
+  const folderID = Number(req.params.id);
+
+  const errors = validationResult(req);
+
+  if (!errors.isEmpty()) {
+    const allFolders = await FolderService.getUserFolders(
+      res.locals.currentUser.id,
+    );
+
+    const userMetrics = await FolderService.getUserMetric(
+      res.locals.currentUser.id,
+    );
+
+    return res.status(400).render("folders", {
+      allFolders,
+      userMetrics,
+      errors: errors.array(),
+    });
+  }
+
+  const { duration } = matchedData(req);
+
+  const expiryDate = new Date();
+  expiryDate.setDate(expiryDate.getDate() + Number(duration));
+
+  try {
+    await prisma.folderShare.create({
+      data: {
+        userID: res.locals.currentUser.id,
+        folderID: folderID,
+        expiresAt: expiryDate,
+      },
+    });
+  } catch (err) {
+    next(err);
+  }
+
+  res.redirect("/folder/all");
+};
+
 const FolderController = {
   allFoldersPageGet,
   addFolderPost,
   editFolderPost,
   deleteFolderPost,
   folderPageGet,
+  shareFolderPost,
 };
 
 export default FolderController;
