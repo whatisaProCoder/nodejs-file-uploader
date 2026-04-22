@@ -22,22 +22,30 @@
           <div class="metrics">
             <div class="metric">
               <div class="metrics-title">Total Folders</div>
-              <div class="value">10</div>
+              <div class="value">
+                <%= userMetrics.numberOfFolders %>
+              </div>
             </div>
             <div class="line"></div>
             <div class="metric files">
               <div class="metrics-title">Total Files</div>
-              <div class="value">20</div>
+              <div class="value">
+                <%= userMetrics.numberOfFiles %>
+              </div>
             </div>
             <div class="line files"></div>
             <div class="metric">
               <div class="metrics-title">Storage Used</div>
-              <div class="value">34<span class="unit">%</span></div>
+              <div class="value">
+                <%= (userMetrics.fileSizesSum._sum.size/userMetrics.totalSize).toFixed(2) %><span class="unit">%</span>
+              </div>
             </div>
             <div class="line"></div>
             <div class="metric">
               <div class="metrics-title">Total Storage</div>
-              <div class="value">50<span class="unit">MB</span></div>
+              <div class="value">
+                <%= userMetrics.totalSize/(1024*1024) %><span class="unit">MB</span>
+              </div>
             </div>
           </div>
         </div>
@@ -72,9 +80,14 @@
                                 <img src="/menu-icon.svg" alt="Folder">
                               </button>
                             </div>
-                            <a href="/folder/<%=folder.id%>" class="additional-info">300KB • 3 files • <span id="date">
-                                <%= folder.createdAt %>
-                              </span>
+                            <a href="/folder/<%=folder.id%>" class="additional-info">
+                              <% if(folder.totalSize>1024*1024) { %><%= (folder.totalSize/(1024*1024)).toFixed(2) %>MB
+                                  <% } else { %>
+                                    <%= (folder.totalSize/(1024)).toFixed(2) %>KB <% } %> • <%
+                                          if(folder._count.files==1) {%>1 file<%}else{%>
+                                            <%=folder._count.files%> files <%}%> • <span id="date">
+                                                  <%= folder.createdAt %>
+                                                </span>
                             </a>
                           </div>
                         </div>
@@ -173,7 +186,7 @@
             <div class="folder-name">Test123</div>
           </div>
 
-          <% if(false) {%>
+          <% if(true) {%>
             <form method="POST">
               <div class="input-container">
                 <label for="duration" class="duration-label">Duration (in days)</label>

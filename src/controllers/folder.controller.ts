@@ -8,8 +8,15 @@ const allFoldersPageGet: RequestHandler = async (_req, res) => {
     res.locals.currentUser.id,
   );
 
+  const userMetrics = await FolderService.getUserMetric(
+    res.locals.currentUser.id,
+  );
+
+  console.log(userMetrics);
+
   res.render("folders", {
     allFolders,
+    userMetrics,
   });
 };
 
