@@ -145,7 +145,7 @@ const shareFolderPost: RequestHandler = async (req, res, next) => {
     next(err);
   }
 
-  res.redirect("/folder/all?share=true");
+  res.redirect("/folder/all");
 };
 
 const deleteShareFolderGet: RequestHandler = async (req, res, next) => {
