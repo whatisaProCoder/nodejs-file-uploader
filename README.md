@@ -189,8 +189,8 @@ Authorization is ownership-first:
 1. Verify file ownership in DB.
 2. Delegate stream/download work to `FileStreamUtil.downloadFile()`.
 3. Utility generates signed Cloudinary URL for private asset download.
-4. Utility streams remote file into local `downloads/` temp path.
-5. Utility serves via `res.download()` with final filename.
+4. Utility streams remote file into local `downloads/` using a unique temporary filename (collision-safe).
+5. Utility serves via `res.download()` using the clean user-facing filename (`name.ext`).
 6. Utility deletes temporary local file after response.
 
 The same download utility is used by:
