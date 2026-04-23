@@ -20,7 +20,9 @@ const downloadFile = async (
     type: "private",
   });
 
-  const finalDownloadFileName = `${fileData.name}.${fileData.ext}`;
+  const finalDownloadFileName = `${fileData.name}_${Math.round(Math.random() * 10000)}.${fileData.ext}`;
+
+  const fileNameForUser = `${fileData.name}.${fileData.ext}`;
 
   const localTempFilePath = path.join(
     process.cwd(),
@@ -57,7 +59,7 @@ const downloadFile = async (
     });
 
     fileStream.on("finish", () => {
-      res.download(localTempFilePath, finalDownloadFileName, async (err) => {
+      res.download(localTempFilePath, fileNameForUser, async (err) => {
         if (err) {
           try {
             await unlink(localTempFilePath);
