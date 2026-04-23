@@ -5,6 +5,7 @@ import path from "node:path";
 import { createWriteStream } from "node:fs";
 import { get } from "node:https";
 import { mkdir, unlink } from "node:fs/promises";
+import FileStreamUtil from "../utils/file.stream";
 
 const folderPageGet: RequestHandler = async (req, res) => {
   const shareID = String(req.params.shareID);
@@ -160,13 +161,6 @@ const downloadSharedFileGet: RequestHandler = async (req, res, next) => {
       prompt: "No Shared File Found",
     });
 
-  // if valid share object for this shareID is found
-
-  let localTempFilePath: string = "";
-
-  // file name + extension
-  let finalDownloadFileName: string = "";
-
   try {
     const requiredFileData = fileShareObject.file;
 
@@ -176,69 +170,7 @@ const downloadSharedFileGet: RequestHandler = async (req, res, next) => {
       });
     }
 
-    const downloadURL = cloudinary.url(requiredFileData.public_id, {
-      resource_type: requiredFileData.resource_type,
-      version: requiredFileData.version,
-      flags: "attachment",
-      sign_url: true,
-      type: "private",
-    });
-
-    finalDownloadFileName = `${requiredFileData.name}.${requiredFileData.ext}`;
-
-    localTempFilePath = path.join(
-      process.cwd(),
-      "downloads",
-      finalDownloadFileName,
-    );
-
-    await mkdir(path.dirname(localTempFilePath), { recursive: true });
-
-    const request = get(downloadURL, (response) => {
-      response.on("error", async (err) => {
-        try {
-          await unlink(localTempFilePath);
-        } catch (errr) {}
-        next(err);
-      });
-
-      if (response.statusCode != 200) {
-        response.resume();
-        return next(
-          new Error(
-            "Failed to download File : Status Code => " + response.statusCode,
-          ),
-        );
-      }
-
-      const fileStream = createWriteStream(localTempFilePath);
-
-      response.pipe(fileStream);
-
-      fileStream.on("error", async (err) => {
-        try {
-          await unlink(localTempFilePath);
-        } catch (errr) {}
-        next(err);
-      });
-
-      fileStream.on("finish", () => {
-        res.download(localTempFilePath, finalDownloadFileName, async (err) => {
-          if (err) {
-            try {
-              await unlink(localTempFilePath);
-            } catch (errr) {}
-            next(err);
-          } else {
-            try {
-              await unlink(localTempFilePath);
-            } catch (errr) {}
-          }
-        });
-      });
-    });
-
-    request.on("error", (err) => next(err));
+    FileStreamUtil.downloadFile(requiredFileData, res, next);
   } catch (err) {
     return next(err);
   }

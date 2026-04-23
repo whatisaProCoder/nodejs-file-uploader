@@ -7,6 +7,9 @@ import FolderService from "../services/folder.service";
 import path from "path";
 import { get } from "https";
 import { createWriteStream } from "fs";
+import FileService from "../services/file.service";
+import AppError from "../errors/app.error";
+import FileStreamUtil from "../utils/file.stream";
 
 const uploadFilePost: RequestHandler = async (req, res, next) => {
   const errors = validationResult(req);
@@ -28,46 +31,15 @@ const uploadFilePost: RequestHandler = async (req, res, next) => {
   }
 
   try {
-    const totalFileSize = await prisma.file.aggregate({
-      where: { userID: res.locals.currentUser.id },
-      _sum: {
-        size: true,
-      },
-    });
-
-    if (
-      Number(totalFileSize._sum.size) + Number(file.size) >
-      50 * 1024 * 1024 // 50MB
-    ) {
-      return res.status(403).render("errorpage", {
-        prompt: "Storage Limit Reached for this Account",
-      });
-    }
-
-    const result = await cloudinary.uploader.upload(file.path, {
-      folder: "nodejs-file-uploader",
-      type: "private",
-    });
-
-    const name =
-      customFileName ??
-      file.originalname.substring(0, file.originalname.indexOf("."));
-
-    await prisma.file.create({
-      data: {
-        name,
-        url: result.secure_url,
-        size: file.size,
-        ext: file.mimetype.substring(file.mimetype.lastIndexOf("/") + 1),
-        userID,
-        folderID,
-        public_id: result.public_id,
-        resource_type: result.resource_type,
-        version: String(result.version),
-      },
-    });
+    await FileService.uploadFile(userID, folderID, file, customFileName);
   } catch (err: any) {
-    return next(err);
+    if (err instanceof AppError) {
+      return res
+        .status(err.status)
+        .render("errorpage", { prompt: err.message });
+    } else {
+      return next(err);
+    }
   } finally {
     try {
       await unlink(file.path);
@@ -150,11 +122,6 @@ const deleteFilePost: RequestHandler = async (req, res, next) => {
 const downloadFileGet: RequestHandler = async (req, res, next) => {
   const fileID = Number(req.params.id);
 
-  let localTempFilePath: string = "";
-
-  // file name + extension
-  let finalDownloadFileName: string = "";
-
   try {
     const requiredFileData = await prisma.file.findUnique({
       where: { id: fileID, userID: res.locals.currentUser.id },
@@ -166,70 +133,13 @@ const downloadFileGet: RequestHandler = async (req, res, next) => {
         .render("errorpage", { prompt: "File Access Denied" });
     }
 
-    const downloadURL = cloudinary.url(requiredFileData.public_id, {
-      resource_type: requiredFileData.resource_type,
-      version: requiredFileData.version,
-      flags: "attachment",
-      sign_url: true,
-      type: "private",
-    });
-
-    finalDownloadFileName = `${requiredFileData.name}.${requiredFileData.ext}`;
-
-    localTempFilePath = path.join(
-      process.cwd(),
-      "downloads",
-      finalDownloadFileName,
-    );
-
-    await mkdir(path.dirname(localTempFilePath), { recursive: true });
-
-    const request = get(downloadURL, (response) => {
-      response.on("error", async (err) => {
-        try {
-          await unlink(localTempFilePath);
-        } catch (errr) {}
-        next(err);
-      });
-
-      if (response.statusCode != 200) {
-        response.resume();
-        return next(
-          new Error(
-            "Failed to download File : Status Code => " + response.statusCode,
-          ),
-        );
-      }
-
-      const fileStream = createWriteStream(localTempFilePath);
-
-      response.pipe(fileStream);
-
-      fileStream.on("error", async (err) => {
-        try {
-          await unlink(localTempFilePath);
-        } catch (errr) {}
-        next(err);
-      });
-
-      fileStream.on("finish", () => {
-        res.download(localTempFilePath, finalDownloadFileName, async (err) => {
-          if (err) {
-            try {
-              await unlink(localTempFilePath);
-            } catch (errr) {}
-            next(err);
-          } else {
-            try {
-              await unlink(localTempFilePath);
-            } catch (errr) {}
-          }
-        });
-      });
-    });
-
-    request.on("error", (err) => next(err));
+    FileStreamUtil.downloadFile(requiredFileData, res, next);
   } catch (err) {
+    if (err instanceof AppError) {
+      return res
+        .status(err.status)
+        .render("errorpage", { prompt: err.message });
+    }
     return next(err);
   }
 };
