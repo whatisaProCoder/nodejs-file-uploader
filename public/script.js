@@ -266,7 +266,7 @@ function openShareFolderDialog(selectedFolderName, selectedFolderID, folderShare
 
     deleteLinkButton.href = `/folder/${selectedFolderID}/share/delete`;
 
-    const daysLeft = Math.round((new Date(folderShareExpiresAt) - Date.now()) / (1000 * 60 * 60 * 24));
+    const daysLeft = ((new Date(folderShareExpiresAt) - Date.now()) / (1000 * 60 * 60 * 24)).toFixed(1);
     if (daysLeft == 1)
       expiry.textContent = `1 day`;
     else
@@ -487,7 +487,7 @@ function openShareFileDialog(selectedFileName, selectedFileID, fileShareId, file
 
     deleteLinkForm.action = `/file/${selectedFileID}/share/delete`;
 
-    const daysLeft = Math.round((new Date(fileShareExpiresAt) - Date.now()) / (1000 * 60 * 60 * 24));
+    const daysLeft = ((new Date(fileShareExpiresAt) - Date.now()) / (1000 * 60 * 60 * 24)).toFixed(1);
     if (daysLeft == 1)
       expiry.textContent = `1 day`;
     else
