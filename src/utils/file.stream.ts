@@ -60,16 +60,10 @@ const downloadFile = async (
 
     fileStream.on("finish", () => {
       res.download(localTempFilePath, fileNameForUser, async (err) => {
-        if (err) {
-          try {
-            await unlink(localTempFilePath);
-          } catch (errr) {}
-          next(err);
-        } else {
-          try {
-            await unlink(localTempFilePath);
-          } catch (errr) {}
-        }
+        try {
+          await unlink(localTempFilePath);
+        } catch (errr) {}
+        next(err);
       });
     });
   });
