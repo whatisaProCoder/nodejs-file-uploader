@@ -139,8 +139,6 @@ const filePageGet: RequestHandler = async (req, res) => {
     },
   });
 
-  console.log(fileShareObject);
-
   if (fileShareObject)
     res.render("sharedfile", { fileShareObject: fileShareObject });
   else
