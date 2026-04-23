@@ -28,11 +28,12 @@
             </a>
             <div class="card-content">
               <div class="top-row">
-                <div class="file-name">
+                <a class="file-name" href="/publicshare/file/<%=fileShareObject.id%>/download">
                   <%=fileShareObject.file.name %>
-                </div>
+                </a>
               </div>
-              <div class="additional-info">
+              <div class="additional-info" href="/publicshare/file/<%=fileShareObject.id%>/download"
+                style="margin-right: 0.75rem;">
                 <% if(fileShareObject.file.size>1024*1024) { %><%= (fileShareObject.file.size/(1024*1024)).toFixed(2) %>
                     MB
                     <% } else { %>
@@ -43,8 +44,6 @@
                             </span>
               </div>
             </div>
-            <a href="/publicshare/file/<%=fileShareObject.id%>/download" class="additional"><img
-                src="/download-icon.svg" alt="Download"></a>
           </div>
 
         </div>

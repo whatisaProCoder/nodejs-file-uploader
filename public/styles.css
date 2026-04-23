@@ -1482,15 +1482,6 @@ dialog:open::backdrop {
   padding-top: 0.5rem;
 }
 
-.file-card .additional {
-  margin-left: 2rem;
-  margin-right: 0.5rem;
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: center;
-}
-
 .file-card .additional img {
   height: 2rem;
   transition: scale ease-out 0.15s;
