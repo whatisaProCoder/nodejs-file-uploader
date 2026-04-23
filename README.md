@@ -65,7 +65,8 @@ The app follows a clean layered structure:
 
 - **Routes** define URL contracts
 - **Controllers** handle request/response orchestration
-- **Services** encapsulate reusable database/business logic
+- **Services** encapsulate reusable database/business logic (folder + file upload flows)
+- **Utils** encapsulate reusable low-level I/O helpers (shared private/public download streaming)
 - **Validators** enforce input constraints
 - **Middleware** handles auth guarding, user context, and global errors
 - **Prisma layer** handles typed persistence
@@ -109,7 +110,10 @@ src/
     home.router.ts
     publicshare.router.ts
   services/
+    file.service.ts           # Upload workflow + quota check + Cloudinary metadata persistence
     folder.service.ts         # Folder queries + user metrics
+  utils/
+    file.stream.ts            # Shared Cloudinary-to-local streaming + res.download delivery
   validators/
     file.validator.ts
     folder.validator.ts
@@ -169,11 +173,11 @@ Authorization is ownership-first:
 
 1. Multer accepts the file (`uploadedFile`) into local `uploads/`.
 2. Request is validated (`fileUploadRules`).
-3. User storage total is aggregated from DB.
+3. `FileService.uploadFile()` aggregates user storage from DB.
 4. If new upload exceeds quota, request is denied.
-5. File is uploaded to Cloudinary (`type: private`).
-6. Metadata is persisted in Prisma (`public_id`, `resource_type`, `version`, size, ext, etc.).
-7. Local temporary upload file is deleted in `finally` cleanup.
+5. Service uploads to Cloudinary (`type: private`).
+6. Service persists metadata in Prisma (`public_id`, `resource_type`, `version`, size, ext, etc.).
+7. Controller always deletes local temporary upload file in `finally` cleanup.
 
 ### Storage limits
 
@@ -183,10 +187,17 @@ Authorization is ownership-first:
 ### Download flow (owner/private)
 
 1. Verify file ownership in DB.
-2. Generate signed Cloudinary URL for private asset download.
-3. Stream remote file into local `downloads/` temp path.
-4. Serve via `res.download()` with final filename.
-5. Delete temporary local file after response.
+2. Delegate stream/download work to `FileStreamUtil.downloadFile()`.
+3. Utility generates signed Cloudinary URL for private asset download.
+4. Utility streams remote file into local `downloads/` temp path.
+5. Utility serves via `res.download()` with final filename.
+6. Utility deletes temporary local file after response.
+
+The same download utility is used by:
+
+- private owner downloads (`/file/:id/download`)
+- public shared-file downloads (`/publicshare/file/:shareID/download`)
+- shared-folder file downloads (`/publicshare/folder/:shareID/file/:fileID/download`)
 
 ## Public Sharing System
 

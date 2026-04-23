@@ -1,14 +1,10 @@
 import { RequestHandler } from "express";
 import { matchedData, validationResult } from "express-validator";
 import { v2 as cloudinary } from "cloudinary";
-import { unlink, mkdir } from "fs/promises";
+import { unlink } from "fs/promises";
 import prisma from "../lib/prisma";
 import FolderService from "../services/folder.service";
-import path from "path";
-import { get } from "https";
-import { createWriteStream } from "fs";
 import FileService from "../services/file.service";
-import AppError from "../errors/app.error";
 import FileStreamUtil from "../utils/file.stream";
 
 const uploadFilePost: RequestHandler = async (req, res, next) => {
@@ -127,7 +123,7 @@ const downloadFileGet: RequestHandler = async (req, res, next) => {
         .render("errorpage", { prompt: "File Access Denied" });
     }
 
-    FileStreamUtil.downloadFile(requiredFileData, res, next);
+    await FileStreamUtil.downloadFile(requiredFileData, res, next);
   } catch (err) {
     return next(err);
   }

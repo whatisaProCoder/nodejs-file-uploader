@@ -35,14 +35,13 @@ const downloadFile = async (
       try {
         await unlink(localTempFilePath);
       } catch (errr) {}
-      throw err;
+      return next(err);
     });
 
     if (response.statusCode != 200) {
       response.resume();
-      throw new AppError(
-        Number(response.statusCode),
-        "Failed to download File",
+      return next(
+        new AppError(Number(response.statusCode), "Failed to download File"),
       );
     }
 
@@ -54,7 +53,7 @@ const downloadFile = async (
       try {
         await unlink(localTempFilePath);
       } catch (errr) {}
-      throw err;
+      return next(err);
     });
 
     fileStream.on("finish", () => {
