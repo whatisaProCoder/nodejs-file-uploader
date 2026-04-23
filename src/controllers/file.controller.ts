@@ -33,13 +33,7 @@ const uploadFilePost: RequestHandler = async (req, res, next) => {
   try {
     await FileService.uploadFile(userID, folderID, file, customFileName);
   } catch (err: any) {
-    if (err instanceof AppError) {
-      return res
-        .status(err.status)
-        .render("errorpage", { prompt: err.message });
-    } else {
-      return next(err);
-    }
+    return next(err);
   } finally {
     try {
       await unlink(file.path);
@@ -135,11 +129,6 @@ const downloadFileGet: RequestHandler = async (req, res, next) => {
 
     FileStreamUtil.downloadFile(requiredFileData, res, next);
   } catch (err) {
-    if (err instanceof AppError) {
-      return res
-        .status(err.status)
-        .render("errorpage", { prompt: err.message });
-    }
     return next(err);
   }
 };
