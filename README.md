@@ -65,8 +65,8 @@ The app follows a clean layered structure:
 
 - **Routes** define URL contracts
 - **Controllers** handle request/response orchestration
-- **Services** encapsulate reusable database/business logic (folder + file upload flows)
-- **Utils** encapsulate reusable low-level I/O helpers (shared private/public download streaming)
+- **Services** encapsulate reusable database/business logic
+- **Utils** encapsulate reusable low-level I/O helpers (download streaming)
 - **Validators** enforce input constraints
 - **Middleware** handles auth guarding, user context, and global errors
 - **Prisma layer** handles typed persistence
