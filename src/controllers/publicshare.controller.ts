@@ -21,7 +21,7 @@ const folderPageGet: RequestHandler = async (req, res) => {
     res.render("sharedfolder", { folderShareObject: folderShareObject });
   else
     res.status(404).render("errorpage", {
-      prompt: "No Shared Folder Found for this Share-ID.",
+      prompt: "No Shared Folder Found",
     });
 };
 
@@ -39,7 +39,7 @@ const filesInPublicFolderDownloadGet: RequestHandler = async (
 
   if (!shareObject)
     return res.status(404).render("errorpage", {
-      prompt: "No Shared Folder Found for this Share-ID.",
+      prompt: "No Shared Folder Found",
     });
 
   // if valid share object for this shareID is found
@@ -143,7 +143,7 @@ const filePageGet: RequestHandler = async (req, res) => {
     res.render("sharedfile", { fileShareObject: fileShareObject });
   else
     res.status(404).render("errorpage", {
-      prompt: "No Shared File Found for this Share-ID.",
+      prompt: "No Shared File Found",
     });
 };
 
@@ -157,7 +157,7 @@ const downloadSharedFileGet: RequestHandler = async (req, res, next) => {
 
   if (!fileShareObject)
     return res.status(404).render("errorpage", {
-      prompt: "No Shared File Found for this Share-ID.",
+      prompt: "No Shared File Found",
     });
 
   // if valid share object for this shareID is found
