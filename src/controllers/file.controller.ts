@@ -172,12 +172,10 @@ const deleteShareFileGet: RequestHandler = async (req, res, next) => {
   const folderID = Number(req.query.folderID);
 
   try {
-    await prisma.fileShare.delete({
+    await prisma.fileShare.deleteMany({
       where: {
-        fileID_userID: {
-          fileID: fileID,
-          userID: res.locals.currentUser.id,
-        },
+        fileID: fileID,
+        userID: res.locals.currentUser.id,
       },
     });
   } catch (err) {

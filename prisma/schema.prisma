@@ -76,8 +76,6 @@ model FolderShare {
   createdAt DateTime @default(now())
 
   expiresAt DateTime
-
-  @@unique([folderID, userID])
 }
 
 model FileShare {
@@ -92,6 +90,4 @@ model FileShare {
   createdAt DateTime @default(now())
 
   expiresAt DateTime
-
-  @@unique([fileID, userID])
 }
